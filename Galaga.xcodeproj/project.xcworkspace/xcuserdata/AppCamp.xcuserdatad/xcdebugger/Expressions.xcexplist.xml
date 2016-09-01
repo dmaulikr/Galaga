@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "GameScene.genEnemies(Double) -&gt; ():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "spawnList.count">
+            </PersistentString>
+            <PersistentString
+               value = "spawn.spawnTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.didBeginContact(SKPhysicsContact) -&gt; ():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contact.bodyA.categoryBitMask">
+            </PersistentString>
+            <PersistentString
+               value = "bulletCategory">
+            </PersistentString>
+            <PersistentString
+               value = "contact.bodyB.categoryBitMask">
+            </PersistentString>
+            <PersistentString
+               value = "enemyCategory">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameOverState.touchesBegan(Set&lt;UITouch&gt;, withEvent : UIEvent?) -&gt; ():GameOverState.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "node.name">
+            </PersistentString>
+            <PersistentString
+               value = "scene?.children">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
