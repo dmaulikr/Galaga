@@ -114,7 +114,7 @@ class GameScene: SKScene {
         if (bg1.position.y <= -1334) {
             bg1.position.y = bg2.position.y + 1334
         }
-        if (frameCount % 5 == 0) {
+        if (frameCount % 3 == 0) {
             fireGuns()
         }
     }
@@ -133,7 +133,7 @@ class GameScene: SKScene {
             bullets.append(bullet!)
         }
         for bullet in bullets {
-            if (bullet.position.y > gameHeight * 4) {
+            if (bullet.position.y > gameHeight * 2.5) {
                 bullet.removeFromParent()
                 bullets.removeFirst() //hacky if bullets move at different speeds
             }
