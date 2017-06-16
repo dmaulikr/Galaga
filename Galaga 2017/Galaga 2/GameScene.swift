@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerMoveHitbox: SKSpriteNode!
     var gun1: SKSpriteNode!
     var gun2: SKSpriteNode!
-    
+    var scoreLabel: SKLabelNode!
     
     var fingerPosTrack: CGPoint? = nil
     let backgroundScrollSpeed = 4
@@ -32,13 +32,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bullets: [SKEmitterNode] = []
     var frameCount = 0
     
+    var score: Int {
+        get {
+            return Int(scoreLabel.text!)!
+        }
+        set (newScore) {
+            scoreLabel.text = String(newScore)
+        }
+    }
+    
     let shockWaveAction: SKAction = {
         let growAndFadeAction = SKAction.group([SKAction.scale(to: 1, duration: 0.5),
-                                                SKAction.fadeOut(withDuration: 0.5)])
-        
+                                                SKAction.fadeOut(withDuration: 0.3)])
         let sequence = SKAction.sequence([growAndFadeAction,
                                           SKAction.removeFromParent()])
-        
         return sequence
     }()
     
@@ -53,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gun1 = player.childNode(withName: "Gun1") as! SKSpriteNode
         gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
         guns = [gun1, gun2]
+        scoreLabel = foreground.childNode(withName: "ScoreLabel") as! SKLabelNode
         //Initialize physics contact system
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
     }
@@ -157,7 +165,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if  contact.bodyA.node?.physicsBody?.contactTestBitMask == 1 &&
             contact.bodyB.node?.physicsBody?.contactTestBitMask == 1 {
-            
+            //Create a shockwave
             let shockwave = SKEmitterNode(fileNamed: "Bullet1Splash")
             shockwave!.position = (contact.bodyB.node?.position)!
             shockwave?.particleZPosition = 5
@@ -166,7 +174,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             shockwave?.run(shockWaveAction)
             //Remove bullet from array
             contact.bodyB.node?.removeFromParent()
-            
+            //Update score
+            score += 7
         }
     }
     
