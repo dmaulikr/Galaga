@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 import SceneKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var foreground: SKNode!
     var background: SKNode!
@@ -32,6 +32,16 @@ class GameScene: SKScene {
     var bullets: [SKEmitterNode] = []
     var frameCount = 0
     
+    let shockWaveAction: SKAction = {
+        let growAndFadeAction = SKAction.group([SKAction.scale(to: 1, duration: 0.5),
+                                                SKAction.fadeOut(withDuration: 0.5)])
+        
+        let sequence = SKAction.sequence([growAndFadeAction,
+                                          SKAction.removeFromParent()])
+        
+        return sequence
+    }()
+    
     override func didMove(to view: SKView) {
         //Initialize local reference variables
         let foreground = childNode(withName: "Foreground")!
@@ -43,6 +53,8 @@ class GameScene: SKScene {
         gun1 = player.childNode(withName: "Gun1") as! SKSpriteNode
         gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
         guns = [gun1, gun2]
+        //Initialize physics contact system
+        physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
     }
     
     func touchDown(atPoint pos : CGPoint, withTouch touch: UITouch) {
@@ -121,11 +133,13 @@ class GameScene: SKScene {
     
     func fireGuns() {
         for gun in guns {
-            let bullet = SKEmitterNode(fileNamed: "Bullet.sks")
+            let bullet = SKEmitterNode(fileNamed: "Bullet1.sks")
             bullet?.position = CGPoint(x: player.position.x + gun.position.x,
                                        y: player.position.y + gun.position.y)
             bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 2)
             bullet?.physicsBody?.affectedByGravity = false
+            bullet?.physicsBody?.collisionBitMask = 3
+            bullet?.physicsBody?.contactTestBitMask = 1
             self.addChild(bullet!)
             bullet?.zPosition = 5
             bullet?.particleZPosition = 5
@@ -140,4 +154,22 @@ class GameScene: SKScene {
         }
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        if  contact.bodyA.node?.physicsBody?.contactTestBitMask == 1 &&
+            contact.bodyB.node?.physicsBody?.contactTestBitMask == 1 {
+            
+            let shockwave = SKEmitterNode(fileNamed: "Bullet1Splash")
+            shockwave!.position = (contact.bodyB.node?.position)!
+            shockwave?.particleZPosition = 5
+            shockwave?.zPosition = 5
+            contact.bodyB.node?.parent?.addChild(shockwave!)
+            shockwave?.run(shockWaveAction)
+            //Remove bullet from array
+            contact.bodyB.node?.removeFromParent()
+            
+        }
+    }
+    
 }
+
+//TODO: bullet class with indexing, so that the proper one can be removed when destroyed
