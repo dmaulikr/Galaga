@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import SceneKit
 
 class GameScene: SKScene {
     
@@ -17,13 +18,19 @@ class GameScene: SKScene {
     var bg2: SKSpriteNode!
     var player: SKSpriteNode!
     var playerMoveHitbox: SKSpriteNode!
+    var gun1: SKSpriteNode!
+    var gun2: SKSpriteNode!
+    
+    
     var fingerPosTrack: CGPoint? = nil
     let backgroundScrollSpeed = 4
-    
     let gameWidth = CGFloat(425)
     let gameHeight = CGFloat(667)
-    var moving = false;
-    var mainTouch: UITouch? = nil;
+    var moving = false
+    var mainTouch: UITouch? = nil
+    var guns: [SKSpriteNode] = []
+    var bullets: [SKEmitterNode] = []
+    var frameCount = 0
     
     override func didMove(to view: SKView) {
         //Initialize local reference variables
@@ -33,6 +40,9 @@ class GameScene: SKScene {
         bg2 = background.childNode(withName: "b2") as! SKSpriteNode
         player = foreground.childNode(withName: "Player") as! SKSpriteNode
         playerMoveHitbox = foreground.childNode(withName: "navcircle") as! SKSpriteNode
+        gun1 = player.childNode(withName: "Gun1") as! SKSpriteNode
+        gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
+        guns = [gun1, gun2]
     }
     
     func touchDown(atPoint pos : CGPoint, withTouch touch: UITouch) {
@@ -93,6 +103,7 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
+        frameCount += 1
         //Adjust the background by the speed of the scroll
         bg1.position.y -= CGFloat(backgroundScrollSpeed);
         bg2.position.y -= CGFloat(backgroundScrollSpeed);
@@ -103,6 +114,30 @@ class GameScene: SKScene {
         if (bg1.position.y <= -1334) {
             bg1.position.y = bg2.position.y + 1334
         }
-        
+        if (frameCount % 5 == 0) {
+            fireGuns()
+        }
     }
+    
+    func fireGuns() {
+        for gun in guns {
+            let bullet = SKEmitterNode(fileNamed: "Bullet.sks")
+            bullet?.position = CGPoint(x: player.position.x + gun.position.x,
+                                       y: player.position.y + gun.position.y)
+            bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 2)
+            bullet?.physicsBody?.affectedByGravity = false
+            self.addChild(bullet!)
+            bullet?.zPosition = 5
+            bullet?.particleZPosition = 5
+            bullet?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1))
+            bullets.append(bullet!)
+        }
+        for bullet in bullets {
+            if (bullet.position.y > gameHeight * 4) {
+                bullet.removeFromParent()
+                bullets.removeFirst() //hacky if bullets move at different speeds
+            }
+        }
+    }
+    
 }

@@ -17,6 +17,7 @@
 		84A490DD1EF3021E00538FC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A490DB1EF3021E00538FC9 /* LaunchScreen.storyboard */; };
 		84A490E81EF3021F00538FC9 /* Galaga_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490E71EF3021F00538FC9 /* Galaga_2Tests.swift */; };
 		84A490F31EF3021F00538FC9 /* Galaga_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490F21EF3021F00538FC9 /* Galaga_2UITests.swift */; };
+		84A491031EF4447700538FC9 /* Bullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A491021EF4447700538FC9 /* Bullet.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		84A490EE1EF3021F00538FC9 /* Galaga 2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Galaga 2UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A490F21EF3021F00538FC9 /* Galaga_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Galaga_2UITests.swift; sourceTree = "<group>"; };
 		84A490F41EF3021F00538FC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84A491021EF4447700538FC9 /* Bullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,8 @@
 		84A490CB1EF3021E00538FC9 /* Galaga 2 */ = {
 			isa = PBXGroup;
 			children = (
+				84A491081EF463E200538FC9 /* Components */,
+				84A491011EF4444A00538FC9 /* Particle systems */,
 				84A490CC1EF3021E00538FC9 /* AppDelegate.swift */,
 				84A490CE1EF3021E00538FC9 /* GameScene.sks */,
 				84A490D01EF3021E00538FC9 /* Actions.sks */,
@@ -132,6 +136,21 @@
 				84A490F41EF3021F00538FC9 /* Info.plist */,
 			);
 			path = "Galaga 2UITests";
+			sourceTree = "<group>";
+		};
+		84A491011EF4444A00538FC9 /* Particle systems */ = {
+			isa = PBXGroup;
+			children = (
+				84A491021EF4447700538FC9 /* Bullet.sks */,
+			);
+			name = "Particle systems";
+			sourceTree = "<group>";
+		};
+		84A491081EF463E200538FC9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A490D81EF3021E00538FC9 /* Main.storyboard in Resources */,
+				84A491031EF4447700538FC9 /* Bullet.sks in Resources */,
 				84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */,
 				84A490DA1EF3021E00538FC9 /* Assets.xcassets in Resources */,
 				84A490DD1EF3021E00538FC9 /* LaunchScreen.storyboard in Resources */,
@@ -524,6 +544,7 @@
 				84A490F91EF3021F00538FC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84A490FA1EF3021F00538FC9 /* Build configuration list for PBXNativeTarget "Galaga 2Tests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +553,7 @@
 				84A490FC1EF3021F00538FC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84A490FD1EF3021F00538FC9 /* Build configuration list for PBXNativeTarget "Galaga 2UITests" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +562,7 @@
 				84A490FF1EF3021F00538FC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
