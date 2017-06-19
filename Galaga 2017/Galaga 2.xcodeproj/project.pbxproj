@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */; };
+		84003B821EF81603006B3441 /* wave1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B811EF81603006B3441 /* wave1.sks */; };
 		84A490CD1EF3021E00538FC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490CC1EF3021E00538FC9 /* AppDelegate.swift */; };
 		84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A490CE1EF3021E00538FC9 /* GameScene.sks */; };
 		84A490D11EF3021E00538FC9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A490D01EF3021E00538FC9 /* Actions.sks */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet1Splash.sks; sourceTree = "<group>"; };
+		84003B811EF81603006B3441 /* wave1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave1.sks; sourceTree = "<group>"; };
 		84A490C91EF3021E00538FC9 /* Galaga 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Galaga 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A490CC1EF3021E00538FC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84A490CE1EF3021E00538FC9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -107,17 +109,12 @@
 		84A490CB1EF3021E00538FC9 /* Galaga 2 */ = {
 			isa = PBXGroup;
 			children = (
+				84E609711EF8466A00DAA813 /* System */,
 				84A491081EF463E200538FC9 /* Components */,
 				84A491011EF4444A00538FC9 /* Particle systems */,
-				84A490CC1EF3021E00538FC9 /* AppDelegate.swift */,
 				84A490CE1EF3021E00538FC9 /* GameScene.sks */,
-				84A490D01EF3021E00538FC9 /* Actions.sks */,
 				84A490D21EF3021E00538FC9 /* GameScene.swift */,
-				84A490D41EF3021E00538FC9 /* GameViewController.swift */,
-				84A490D61EF3021E00538FC9 /* Main.storyboard */,
 				84A490D91EF3021E00538FC9 /* Assets.xcassets */,
-				84A490DB1EF3021E00538FC9 /* LaunchScreen.storyboard */,
-				84A490DE1EF3021F00538FC9 /* Info.plist */,
 			);
 			path = "Galaga 2";
 			sourceTree = "<group>";
@@ -152,8 +149,22 @@
 		84A491081EF463E200538FC9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				84003B811EF81603006B3441 /* wave1.sks */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		84E609711EF8466A00DAA813 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				84A490CC1EF3021E00538FC9 /* AppDelegate.swift */,
+				84A490D01EF3021E00538FC9 /* Actions.sks */,
+				84A490D41EF3021E00538FC9 /* GameViewController.swift */,
+				84A490DE1EF3021F00538FC9 /* Info.plist */,
+				84A490D61EF3021E00538FC9 /* Main.storyboard */,
+				84A490DB1EF3021E00538FC9 /* LaunchScreen.storyboard */,
+			);
+			name = System;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +279,7 @@
 				84A491031EF4447700538FC9 /* Bullet1.sks in Resources */,
 				84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */,
 				84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */,
+				84003B821EF81603006B3441 /* wave1.sks in Resources */,
 				84A490DA1EF3021E00538FC9 /* Assets.xcassets in Resources */,
 				84A490DD1EF3021E00538FC9 /* LaunchScreen.storyboard in Resources */,
 				84A490D11EF3021E00538FC9 /* Actions.sks in Resources */,
