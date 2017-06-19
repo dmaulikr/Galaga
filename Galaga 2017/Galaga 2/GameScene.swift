@@ -129,7 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        //Waves of length 9s
+        //Waves of length is 9s
         if (frameCount % 540 == 0) {
             if (currentWave != nil) {
                 currentWave.removeFromParent()
