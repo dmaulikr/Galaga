@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var waveScene: SKScene!
     var wave1: SKSpriteNode!
+    var currentWave: SKSpriteNode!
     
     var score: Int {
         get {
@@ -128,8 +129,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if (frameCount % 600 == 0) {
-            addChild(wave1.copy() as! SKSpriteNode)
+        //Waves of length 9s
+        if (frameCount % 540 == 0) {
+            if (currentWave != nil) {
+                currentWave.removeFromParent()
+            }
+            currentWave = wave1.copy() as! SKSpriteNode
+            addChild(currentWave)
         }
         
         frameCount += 1
@@ -166,7 +172,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullets.append(bullet!)
         }
         for bullet in bullets {
-            if (bullet.position.y > gameHeight * 2.5) {
+            if (bullet.position.y > gameHeight + 20) {
                 bullet.removeFromParent()
                 bullets.removeFirst() //hacky if bullets move at different speeds
             }
