@@ -59,7 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let background = childNode(withName: "Background")!
         bg1 = background.childNode(withName: "b1") as! SKSpriteNode
         bg2 = background.childNode(withName: "b2") as! SKSpriteNode
-        player = foreground.childNode(withName: "Player") as! SKSpriteNode
+        player = foreground.childNode(withName: "player") as! SKSpriteNode
         playerMoveHitbox = foreground.childNode(withName: "navcircle") as! SKSpriteNode
         gun1 = player.childNode(withName: "Gun1") as! SKSpriteNode
         gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
@@ -153,7 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bg1.position.y = bg2.position.y + 1334
         }
         if (frameCount % 3 == 0) {
-            fireGuns()
+            //fireGuns()
         }
         for enemy: SKNode in currentWave.children {
             for gun: SKNode in enemy.children {
@@ -266,7 +266,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        //If enemy bullets collide with player
+        if ((node?.name == "cannonBullet" && node2?.name == "player")
+            || (node2?.name == "cannonBullet" && node?.name == "player")) {
+            restartGame()
+        }
         return false
+    }
+    
+    func restartGame() {
+        score = 0
+        currentWave.removeFromParent()
+        currentWave = wave1.copy() as! SKSpriteNode
+        addChild(currentWave)
     }
     
 }

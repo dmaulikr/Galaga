@@ -11,15 +11,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GameScene.update(Double) -&gt; ():GameScene.swift">
+         contextName = "GameScene.handleNodeCollision(node : SKNode, node2 : SKNode) -&gt; ():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "node2.name">
+            </PersistentString>
+            <PersistentString
+               value = "node2.userData">
+            </PersistentString>
+            <PersistentString
+               value = "node.name">
+            </PersistentString>
+            <PersistentString
+               value = "node.userData">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "GameScene.handleNodeCollision(node : SKNode?, node2 : SKNode?) -&gt; Bool:GameScene.swift">
          <PersistentStrings>
             <PersistentString
-               value = "node.userData.value(forKey:&quot;scoreValue&quot;) as! Int">
+               value = "node?.name">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.update(Double) -&gt; ():GameScene.swift">
       </ContextState>
       <ContextState
          contextName = "Cannon.update(frameCount : Int) -&gt; ():Cannon.swift">
@@ -41,23 +58,6 @@
       <ContextState
          contextName = "GameScene.handleNodeCollision(node : SKNode, node2 : SKNode) -&gt; Bool:GameScene.swift">
          <PersistentStrings>
-            <PersistentString
-               value = "node.userData">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GameScene.handleNodeCollision(node : SKNode, node2 : SKNode) -&gt; ():GameScene.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "node2.name">
-            </PersistentString>
-            <PersistentString
-               value = "node2.userData">
-            </PersistentString>
-            <PersistentString
-               value = "node.name">
-            </PersistentString>
             <PersistentString
                value = "node.userData">
             </PersistentString>
