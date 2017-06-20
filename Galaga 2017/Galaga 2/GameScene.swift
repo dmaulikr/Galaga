@@ -138,10 +138,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(currentWave)
         }
         
+        currentWave.position.y -= 2
+        
         frameCount += 1
         //Adjust the background by the speed of the scroll
         bg1.position.y -= CGFloat(backgroundScrollSpeed);
         bg2.position.y -= CGFloat(backgroundScrollSpeed);
+        
         //If any of the two are below the display, move them back above the other.
         if (bg2.position.y <= -1334) {
             bg2.position.y = bg1.position.y + 1334
@@ -151,6 +154,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if (frameCount % 3 == 0) {
             fireGuns()
+        }
+        for enemy: SKNode in waveScene.childNode(withName: "overlay")!.children {
+            for gun: SKNode in enemy.children {
+                if let weapon = gun as? Weapon {
+                    //If it's the right frame, fire
+                    if (frameCount % weapon.getFireRate() == 0) {
+                        let bullet: SKEmitterNode = weapon.getBullet().copy() as! SKEmitterNode
+                        let shipPos = weapon.parent?.position
+                        let overlayPos = weapon.parent?.parent?.position
+                        let absolutePos = CGPoint(x: (shipPos?.x)! + (overlayPos?.x)! + weapon.position.x,
+                                                  y: (shipPos?.y)! + (overlayPos?.y)! + weapon.position.y - 25)
+                        bullet.position = absolutePos
+                        bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
+                        bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
+                        addChild(bullet)
+                        bullet.physicsBody?.applyImpulse(weapon.getImpulse())
+                    }
+                }
+            }
         }
     }
     
@@ -162,10 +184,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                        y: player.position.y + gun.position.y)
             bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 2)
             bullet?.physicsBody?.affectedByGravity = false
-            bullet?.physicsBody?.collisionBitMask = 238962586
-            bullet?.name = "bullet"
             bullet?.physicsBody?.contactTestBitMask = 1
-            self.addChild(bullet!)
+            bullet?.physicsBody?.collisionBitMask = 1
+            bullet?.physicsBody?.categoryBitMask = 2
+            bullet?.name = "bullet"
+            addChild(bullet!)
             bullet?.zPosition = 5
             bullet?.particleZPosition = 5
             bullet?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1))
@@ -197,20 +220,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Returns whether or not to remove the node after function completion.
     func handleNodeCollision(node: SKNode?, node2: SKNode?) -> Bool {
         guard node != nil else {
-            if (node2 != nil && node2?.name == "bullet") {
-                node2?.removeFromParent()
-            }
             return false
         }
         guard node2 != nil else {
-            if (node != nil && node?.name == "bullet") {
-                node?.removeFromParent()
-            }
             return false
         }
-        if (node?.name == "bullet") {
-            //If a bullet and enemy ship collide, ship and ship, or bullet and bullet collide
-            if  node2?.physicsBody?.contactTestBitMask == 1 {
+        //If a bullet and enemy ship collide, ship and ship, or bullet and bullet collide
+        if (node?.physicsBody?.contactTestBitMask == 1
+            && node2?.physicsBody?.contactTestBitMask == 1) {
+            if (node?.name == "bullet") {
                 //Create a shockwave
                 let shockwave = SKEmitterNode(fileNamed: "Bullet1Splash")
                 shockwave!.position = node!.position
@@ -220,32 +238,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 shockwave?.run(shockWaveAction)
                 //Remove bullet from array
                 return true
-            }
-            return false
-        } else if (node?.name == "Enemy1"
+            } else if (node?.name == "Enemy1"
                 || node?.name == "Enemy2") {
-            //Update score
-            score += 7
-            //Lower the enemy's health - if below 0, kill it
-            if let currentHealth = node?.userData?.value(forKey: "health") as? Int {
-                //TEMP: Implement different damges by bullet type.
-                let damage = 4
-                if (currentHealth - damage > 0) {
-                    node?.userData?.setValue(currentHealth - damage, forKey: "health")
-                    return false
-                } else {
-                    //If the scoreValue property is initialized, add it to main score.
-                    if let addScore = node?.userData?.value(forKey: "scoreValue") as? Int {
-                        score += addScore
+                //Update score
+                score += 7
+                //Lower the enemy's health - if below 0, kill it
+                if let currentHealth = node?.userData?.value(forKey: "health") as? Int {
+                    //TEMP: Implement different damges by bullet type.
+                    let damage = 4
+                    if (currentHealth - damage > 0) {
+                        node?.userData?.setValue(currentHealth - damage, forKey: "health")
+                        return false
                     } else {
-                        print ("Issue initializing scoreValue property.")
+                        //Delete stray bullets
+                        for nodeDel in (node?.physicsBody?.allContactedBodies())! {
+                            nodeDel.node?.removeFromParent()
+                        }
+                        //If the scoreValue property is initialized, add it to main score.
+                        if let addScore = node?.userData?.value(forKey: "scoreValue") as? Int {
+                            score += addScore
+                        } else {
+                            print ("Issue initializing scoreValue property.")
+                            return true
+                        }
                         return true
                     }
-                    return true
+                } else {
+                    print ("Error accessing enemy variables")
+                    return false
                 }
-            } else {
-                print ("Error accessing enemy variables")
-                return false
             }
         }
         return false

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */; };
 		84003B821EF81603006B3441 /* wave1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B811EF81603006B3441 /* wave1.sks */; };
+		8437DE081EF9A5D700AC7890 /* CannonBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8437DE071EF9A5D700AC7890 /* CannonBullet.sks */; };
+		84600EA41EF99361008520B2 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EA31EF99361008520B2 /* Weapon.swift */; };
 		84A490CD1EF3021E00538FC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490CC1EF3021E00538FC9 /* AppDelegate.swift */; };
 		84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A490CE1EF3021E00538FC9 /* GameScene.sks */; };
 		84A490D11EF3021E00538FC9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A490D01EF3021E00538FC9 /* Actions.sks */; };
@@ -20,6 +22,7 @@
 		84A490E81EF3021F00538FC9 /* Galaga_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490E71EF3021F00538FC9 /* Galaga_2Tests.swift */; };
 		84A490F31EF3021F00538FC9 /* Galaga_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490F21EF3021F00538FC9 /* Galaga_2UITests.swift */; };
 		84A491031EF4447700538FC9 /* Bullet1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A491021EF4447700538FC9 /* Bullet1.sks */; };
+		84E609731EF8695600DAA813 /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E609721EF8695600DAA813 /* Cannon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,8 @@
 /* Begin PBXFileReference section */
 		84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet1Splash.sks; sourceTree = "<group>"; };
 		84003B811EF81603006B3441 /* wave1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave1.sks; sourceTree = "<group>"; };
+		8437DE071EF9A5D700AC7890 /* CannonBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CannonBullet.sks; sourceTree = "<group>"; };
+		84600EA31EF99361008520B2 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		84A490C91EF3021E00538FC9 /* Galaga 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Galaga 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A490CC1EF3021E00538FC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84A490CE1EF3021E00538FC9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 		84A490F21EF3021F00538FC9 /* Galaga_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Galaga_2UITests.swift; sourceTree = "<group>"; };
 		84A490F41EF3021F00538FC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A491021EF4447700538FC9 /* Bullet1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet1.sks; sourceTree = "<group>"; };
+		84E609721EF8695600DAA813 /* Cannon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84600EA21EF95F2C008520B2 /* Weapons */ = {
+			isa = PBXGroup;
+			children = (
+				84E609721EF8695600DAA813 /* Cannon.swift */,
+				84600EA31EF99361008520B2 /* Weapon.swift */,
+			);
+			name = Weapons;
+			sourceTree = "<group>";
+		};
 		84A490C01EF3021E00538FC9 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +157,7 @@
 			children = (
 				84A491021EF4447700538FC9 /* Bullet1.sks */,
 				84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */,
+				8437DE071EF9A5D700AC7890 /* CannonBullet.sks */,
 			);
 			name = "Particle systems";
 			sourceTree = "<group>";
@@ -149,6 +165,7 @@
 		84A491081EF463E200538FC9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				84600EA21EF95F2C008520B2 /* Weapons */,
 				84003B811EF81603006B3441 /* wave1.sks */,
 			);
 			name = Components;
@@ -277,6 +294,7 @@
 			files = (
 				84A490D81EF3021E00538FC9 /* Main.storyboard in Resources */,
 				84A491031EF4447700538FC9 /* Bullet1.sks in Resources */,
+				8437DE081EF9A5D700AC7890 /* CannonBullet.sks in Resources */,
 				84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */,
 				84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */,
 				84003B821EF81603006B3441 /* wave1.sks in Resources */,
@@ -307,9 +325,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84600EA41EF99361008520B2 /* Weapon.swift in Sources */,
 				84A490D31EF3021E00538FC9 /* GameScene.swift in Sources */,
 				84A490D51EF3021E00538FC9 /* GameViewController.swift in Sources */,
 				84A490CD1EF3021E00538FC9 /* AppDelegate.swift in Sources */,
+				84E609731EF8695600DAA813 /* Cannon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

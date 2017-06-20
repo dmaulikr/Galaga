@@ -3,6 +3,50 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Cannon.update(frameCount : Int, gameScene : SKScene) -&gt; ():Cannon.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parent?.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.update(Double) -&gt; ():GameScene.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.handleNodeCollision(node : SKNode?, node2 : SKNode?) -&gt; Bool:GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "node.userData.value(forKey:&quot;scoreValue&quot;) as! Int">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Cannon.update(frameCount : Int) -&gt; ():Cannon.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cannonBullets">
+            </PersistentString>
+            <PersistentString
+               value = "cannonBullets[0].position">
+            </PersistentString>
+            <PersistentString
+               value = "parent?.parent?.parent">
+            </PersistentString>
+            <PersistentString
+               value = "bullet?.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.handleNodeCollision(node : SKNode, node2 : SKNode) -&gt; Bool:GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "node.userData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GameScene.handleNodeCollision(node : SKNode, node2 : SKNode) -&gt; ():GameScene.swift">
          <PersistentStrings>
             <PersistentString
@@ -14,22 +58,6 @@
             <PersistentString
                value = "node.name">
             </PersistentString>
-            <PersistentString
-               value = "node.userData">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GameScene.handleNodeCollision(node : SKNode?, node2 : SKNode?) -&gt; Bool:GameScene.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "node.userData.value(forKey:&quot;scoreValue&quot;) as! Int">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GameScene.handleNodeCollision(node : SKNode, node2 : SKNode) -&gt; Bool:GameScene.swift">
-         <PersistentStrings>
             <PersistentString
                value = "node.userData">
             </PersistentString>
