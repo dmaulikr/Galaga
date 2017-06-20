@@ -138,12 +138,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(currentWave)
         }
         
-        currentWave.position.y -= 2
+        currentWave.position.y -= 3
         
         frameCount += 1
         //Adjust the background by the speed of the scroll
-        bg1.position.y -= CGFloat(backgroundScrollSpeed);
-        bg2.position.y -= CGFloat(backgroundScrollSpeed);
+        bg1.position.y -= CGFloat(backgroundScrollSpeed)
+        bg2.position.y -= CGFloat(backgroundScrollSpeed)
         
         //If any of the two are below the display, move them back above the other.
         if (bg2.position.y <= -1334) {
@@ -155,17 +155,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (frameCount % 3 == 0) {
             fireGuns()
         }
-        for enemy: SKNode in waveScene.childNode(withName: "overlay")!.children {
+        for enemy: SKNode in currentWave.children {
             for gun: SKNode in enemy.children {
                 if let weapon = gun as? Weapon {
                     //If it's the right frame, fire
                     if (frameCount % weapon.getFireRate() == 0) {
                         let bullet: SKEmitterNode = weapon.getBullet().copy() as! SKEmitterNode
-                        let shipPos = weapon.parent?.position
-                        let overlayPos = weapon.parent?.parent?.position
-                        let absolutePos = CGPoint(x: (shipPos?.x)! + (overlayPos?.x)! + weapon.position.x,
-                                                  y: (shipPos?.y)! + (overlayPos?.y)! + weapon.position.y - 25)
-                        bullet.position = absolutePos
+                        let pos = weapon.parent?.convert(weapon.position, to: self)
+                        bullet.position = pos!
                         bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
                         bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
                         addChild(bullet)
