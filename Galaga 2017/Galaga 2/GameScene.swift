@@ -129,8 +129,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        //Waves of length is 9s
-        if (frameCount % 540 == 0) {
+        //Waves of length is 12s
+        if (frameCount % 720 == 0) {
             if (currentWave != nil) {
                 currentWave.removeFromParent()
             }
@@ -153,7 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bg1.position.y = bg2.position.y + 1334
         }
         if (frameCount % 3 == 0) {
-            //fireGuns()
+            fireGuns()
         }
         for enemy: SKNode in currentWave.children {
             for gun: SKNode in enemy.children {
@@ -275,10 +275,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func restartGame() {
-        score = 0
-        currentWave.removeFromParent()
-        currentWave = wave1.copy() as! SKSpriteNode
-        addChild(currentWave)
+        view?.isPaused = true
+        let alert = UIAlertController(title: "Game Over!", message: "Score: \(score)", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Restart", style: .default) { action in
+            self.score = 0
+            self.currentWave.removeFromParent()
+            self.currentWave = self.wave1.copy() as! SKSpriteNode
+            self.addChild(self.currentWave)
+            self.view?.isPaused = false
+        })
+        let vc = self.view?.window?.rootViewController
+        if vc?.presentedViewController == nil {
+            vc?.present(alert, animated: true, completion: nil)
+        }
+        
     }
     
 }
