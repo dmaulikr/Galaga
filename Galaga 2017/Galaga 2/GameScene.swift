@@ -135,6 +135,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 currentWave.removeFromParent()
             }
             currentWave = wave1.copy() as! SKSpriteNode
+            if (arc4random_uniform(100) > 50) {
+                for node in currentWave.children {
+                    node.position.y *= -1
+                }
+            }
             addChild(currentWave)
         }
         
@@ -269,6 +274,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //If enemy bullets collide with player
         if ((node?.name == "cannonBullet" && node2?.name == "player")
             || (node2?.name == "cannonBullet" && node?.name == "player")) {
+            restartGame()
+        } else if ((node?.name == "Enemy1" && node2?.name == "player")
+            || (node2?.name == "Enemy1" && node?.name == "player")) {
+            restartGame()
+        } else if ((node?.name == "Enemy2" && node2?.name == "player")
+            || (node2?.name == "Enemy2" && node?.name == "player")) {
             restartGame()
         }
         return false
