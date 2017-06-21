@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var foreground: SKNode!
     var background: SKNode!
+    var bulletLayer: SKNode!
     var bg1: SKSpriteNode!
     var bg2: SKSpriteNode!
     var player: SKSpriteNode!
@@ -55,8 +56,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         //Initialize local reference variables
-        let foreground = childNode(withName: "Foreground")!
-        let background = childNode(withName: "Background")!
+        foreground = childNode(withName: "Foreground")!
+        background = childNode(withName: "Background")!
+        bulletLayer = foreground.childNode(withName: "Bullets")
         bg1 = background.childNode(withName: "b1") as! SKSpriteNode
         bg2 = background.childNode(withName: "b2") as! SKSpriteNode
         player = foreground.childNode(withName: "player") as! SKSpriteNode
@@ -170,7 +172,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         bullet.position = pos!
                         bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
                         bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
-                        addChild(bullet)
+                        bulletLayer.addChild(bullet)
                         bullet.physicsBody?.applyImpulse(weapon.getImpulse())
                     }
                 }
@@ -190,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet?.physicsBody?.collisionBitMask = 1
             bullet?.physicsBody?.categoryBitMask = 2
             bullet?.name = "bullet"
-            addChild(bullet!)
+            bulletLayer.addChild(bullet!)
             bullet?.zPosition = 5
             bullet?.particleZPosition = 5
             bullet?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1))
@@ -291,6 +293,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         alert.addAction(UIAlertAction(title: "Restart", style: .default) { action in
             self.score = 0
             self.currentWave.removeFromParent()
+            self.bulletLayer.removeAllChildren()
             self.currentWave = self.wave1.copy() as! SKSpriteNode
             self.addChild(self.currentWave)
             self.view?.isPaused = false
