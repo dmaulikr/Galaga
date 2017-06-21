@@ -157,7 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (bg1.position.y <= -1334) {
             bg1.position.y = bg2.position.y + 1334
         }
-        if (frameCount % 3 == 0) {
+        if (frameCount % 4 == 0) {
             fireGuns()
         }
         for enemy: SKNode in currentWave.children {
@@ -272,14 +272,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         //If enemy bullets collide with player
-        if ((node?.name == "cannonBullet" && node2?.name == "player")
-            || (node2?.name == "cannonBullet" && node?.name == "player")) {
+        if ((node?.name == "cannonBullet" && node2?.name == "playerHitbox")
+            || (node2?.name == "cannonBullet" && node?.name == "playerHitbox")) {
             restartGame()
-        } else if ((node?.name == "Enemy1" && node2?.name == "player")
-            || (node2?.name == "Enemy1" && node?.name == "player")) {
+        } else if ((node?.name == "Enemy1" && node2?.name == "playerHitbox")
+            || (node2?.name == "Enemy1" && node?.name == "playerHitbox")) {
             restartGame()
-        } else if ((node?.name == "Enemy2" && node2?.name == "player")
-            || (node2?.name == "Enemy2" && node?.name == "player")) {
+        } else if ((node?.name == "Enemy2" && node2?.name == "playerHitbox")
+            || (node2?.name == "Enemy2" && node?.name == "playerHitbox")) {
             restartGame()
         }
         return false
