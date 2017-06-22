@@ -169,11 +169,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if (frameCount % weapon.getFireRate() == 0) {
                         let bullet: SKEmitterNode = weapon.getBullet().copy() as! SKEmitterNode
                         let pos = weapon.parent?.convert(weapon.position, to: self)
+                        let rotation = weapon.zRotation
+                        let impulseMag = sqrt(pow(weapon.getImpulse().dx, 2) + pow(weapon.getImpulse().dy, 2))
+                        var yMod: CGFloat = 1
+                        var xMod: CGFloat = 1
+                        //Magnitude ignores negatives, so check if they're negative and adjust them later
+                        if (weapon.getImpulse().dy < 0) {
+                            yMod = -1
+                        }
+                        if (weapon.getImpulse().dx < 0) {
+                            xMod = -1
+                        }
                         bullet.position = pos!
                         bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
                         bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
                         bulletLayer.addChild(bullet)
-                        bullet.physicsBody?.applyImpulse(weapon.getImpulse())
+                        bullet.physicsBody?.applyImpulse(CGVector(dx: impulseMag * sin(rotation) * xMod,
+                                                                  dy: impulseMag * cos(rotation) * yMod))
                     }
                 }
             }
