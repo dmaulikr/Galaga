@@ -12,48 +12,26 @@ import SceneKit
 
 class Cannon: Weapon {
     
-    var cannonBullets: [SKEmitterNode] = []
-    
-    //Number of frames between fires
-    let fireRate = 120
-    let bullet = SKEmitterNode(fileNamed: "CannonBullet.sks")
-    let bulletName = "cannonBullet"
-    let impulse = CGVector(dx: 0, dy: -0.2)
-    let categoryMask: UInt32 = 4
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initBullet()
-        
+    override var fireRate: Int {
+        get {
+            return 120
+        }
     }
-    
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
-        initBullet()
+    override var bulletFile: String {
+        get {
+            return "CannonBullet.sks"
+        }
     }
-
-    func initBullet() {
-        bullet?.name = bulletName
-        bullet?.zPosition = 8
-        bullet?.particleZPosition = 8
-        bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-        bullet?.physicsBody?.affectedByGravity = false
+    override var bulletName: String {
+        get {
+            return "cannonBullet"
+        }
     }
-    
-    override func getFireRate() -> Int {
-        return fireRate
-    }
-    
-    override func getBullet() -> SKEmitterNode {
-        return bullet!
-    }
-    
-    override func getImpulse() -> CGVector {
-        return impulse
-    }
-    
-    override func getCategoryMask() -> UInt32 {
-        return categoryMask
+    //When fired, which speed to go (sign signifies direction)
+    override var impulse: CGVector {
+        get {
+            return CGVector(dx: 0, dy: -0.15)
+        }
     }
     
 }

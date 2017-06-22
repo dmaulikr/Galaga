@@ -149,7 +149,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         //Waves of length is 12s
-        if (frameCount % 720 == 0) {
+        if (frameCount % 480 == 0) {
             //As long as there are waves, spawn them. Pick one randomly from the set of possible waves.
             if (waveSet.count != 0) {
                 let index = Int(arc4random_uniform(UInt32(waveSet.count)))
@@ -292,15 +292,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //Lower the enemy's health - if below 0, kill it
                 if let currentHealth = node?.userData?.value(forKey: "health") as? Int {
                     //TEMP: Implement different damges by bullet type.
-                    let damage = 4
+                    let damage = 5
                     if (currentHealth - damage > 0) {
                         node?.userData?.setValue(currentHealth - damage, forKey: "health")
                         return false
                     } else {
-                        //Delete stray bullets
-                        for nodeDel in (node?.physicsBody?.allContactedBodies())! {
-                            nodeDel.node?.removeFromParent()
-                        }
+                        
                         //If the scoreValue property is initialized, add it to main score.
                         if let addScore = node?.userData?.value(forKey: "scoreValue") as? Int {
                             score += addScore

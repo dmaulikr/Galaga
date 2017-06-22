@@ -11,29 +11,68 @@ import SpriteKit
 
 class Weapon: SKSpriteNode {
     
+    var bullet: SKEmitterNode!
+    //Number of frames between fires
+    var fireRate: Int {
+        get {
+            return 120
+        }
+    }
+    var bulletFile: String {
+        get {
+            return "Bullet1.sks"
+        }
+    }
+    var bulletName: String {
+        get {
+            return "genericBullet"
+        }
+    }
+    //When fired, which speed to go (sign signifies direction)
+    var impulse: CGVector {
+        return CGVector(dx: 0, dy: -0.15)
+    }
+    var categoryMask: UInt32 {
+        get {
+            return 4
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+        initBullet()
     }
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
+        initBullet()
     }
     
-    func getBullet() -> SKEmitterNode {
-        return SKEmitterNode()
+    func initBullet() {
+        bullet = SKEmitterNode(fileNamed: bulletFile)!
+        bullet.name = bulletName
+        bullet.zPosition = 8
+        bullet.particleZPosition = 8
+        bullet.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+        bullet.physicsBody?.affectedByGravity = false
+        bullet.physicsBody?.isDynamic = true
     }
     
     func getFireRate() -> Int {
-        return 60
+        return fireRate
+    }
+    
+    func getBullet() -> SKEmitterNode {
+        return bullet
     }
     
     func getImpulse() -> CGVector {
-        return CGVector(dx: 0, dy: 0)
+        return impulse
     }
     
     func getCategoryMask() -> UInt32 {
-        return 2
+        return categoryMask
     }
+
     
 }

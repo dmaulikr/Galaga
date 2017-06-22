@@ -23,6 +23,7 @@
 		84A490E81EF3021F00538FC9 /* Galaga_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490E71EF3021F00538FC9 /* Galaga_2Tests.swift */; };
 		84A490F31EF3021F00538FC9 /* Galaga_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490F21EF3021F00538FC9 /* Galaga_2UITests.swift */; };
 		84A491031EF4447700538FC9 /* Bullet1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A491021EF4447700538FC9 /* Bullet1.sks */; };
+		84AF46E91EFC4AEA00B48336 /* wave3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AF46E81EFC4AEA00B48336 /* wave3.sks */; };
 		84E609731EF8695600DAA813 /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E609721EF8695600DAA813 /* Cannon.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		84A490F21EF3021F00538FC9 /* Galaga_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Galaga_2UITests.swift; sourceTree = "<group>"; };
 		84A490F41EF3021F00538FC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A491021EF4447700538FC9 /* Bullet1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet1.sks; sourceTree = "<group>"; };
+		84AF46E81EFC4AEA00B48336 /* wave3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave3.sks; sourceTree = "<group>"; };
 		84E609721EF8695600DAA813 /* Cannon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +172,7 @@
 				84600EA21EF95F2C008520B2 /* Weapons */,
 				84003B811EF81603006B3441 /* wave1.sks */,
 				8415EF451EFC27CC00648576 /* wave2.sks */,
+				84AF46E81EFC4AEA00B48336 /* wave3.sks */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */,
 				84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */,
 				84003B821EF81603006B3441 /* wave1.sks in Resources */,
+				84AF46E91EFC4AEA00B48336 /* wave3.sks in Resources */,
 				84A490DA1EF3021E00538FC9 /* Assets.xcassets in Resources */,
 				84A490DD1EF3021E00538FC9 /* LaunchScreen.storyboard in Resources */,
 				84A490D11EF3021E00538FC9 /* Actions.sks in Resources */,
