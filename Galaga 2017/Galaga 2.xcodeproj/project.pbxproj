@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */; };
 		84003B821EF81603006B3441 /* wave1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B811EF81603006B3441 /* wave1.sks */; };
+		8415EF461EFC27CC00648576 /* wave2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8415EF451EFC27CC00648576 /* wave2.sks */; };
 		8437DE081EF9A5D700AC7890 /* CannonBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8437DE071EF9A5D700AC7890 /* CannonBullet.sks */; };
 		84600EA41EF99361008520B2 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EA31EF99361008520B2 /* Weapon.swift */; };
 		84A490CD1EF3021E00538FC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A490CC1EF3021E00538FC9 /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet1Splash.sks; sourceTree = "<group>"; };
 		84003B811EF81603006B3441 /* wave1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave1.sks; sourceTree = "<group>"; };
+		8415EF451EFC27CC00648576 /* wave2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave2.sks; sourceTree = "<group>"; };
 		8437DE071EF9A5D700AC7890 /* CannonBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CannonBullet.sks; sourceTree = "<group>"; };
 		84600EA31EF99361008520B2 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		84A490C91EF3021E00538FC9 /* Galaga 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Galaga 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 			children = (
 				84600EA21EF95F2C008520B2 /* Weapons */,
 				84003B811EF81603006B3441 /* wave1.sks */,
+				8415EF451EFC27CC00648576 /* wave2.sks */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A490D81EF3021E00538FC9 /* Main.storyboard in Resources */,
+				8415EF461EFC27CC00648576 /* wave2.sks in Resources */,
 				84A491031EF4447700538FC9 /* Bullet1.sks in Resources */,
 				8437DE081EF9A5D700AC7890 /* CannonBullet.sks in Resources */,
 				84A490CF1EF3021E00538FC9 /* GameScene.sks in Resources */,
