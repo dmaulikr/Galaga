@@ -82,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //This lets you add more than one wave option for waves in which flipping it on the y-axis could
         //represent an additional disparate wave.
         //Wave1: can be flipped. Wave2: cannot.
-        waveSet = [(wave3, true), (wave3, false)]
+        waveSet = [(wave1, true), (wave1, false), (wave2, false), (wave3, true), (wave3, false)]
         
         //Initialize physics contact system
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
