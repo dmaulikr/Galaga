@@ -10,22 +10,27 @@ import Foundation
 import SpriteKit
 import SceneKit
 
-class Cannon: Weapon {
+class Repeater: Weapon {
     
     override var fireRate: Int {
         get {
-            return 120
+            return 15
         }
     }
     override var bulletFile: String {
         get {
-            return "CannonBullet.sks"
+            return "RepeaterBullet.sks"
         }
     }
     //When fired, which speed to go (sign signifies direction)
     override var impulse: CGVector {
         get {
-            return CGVector(dx: 0, dy: -0.2)
+            return CGVector(dx: 0, dy: -0.1)
+        }
+    }
+    override var variation: Int {
+        get {
+            return 30
         }
     }
     

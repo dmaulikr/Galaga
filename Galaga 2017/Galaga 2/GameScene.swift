@@ -34,10 +34,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var frameCount = 0
     
     var wavesParent: SKNode!
-    var wave1Scene: SKScene!
-    var wave2Scene: SKScene!
     var wave1: SKSpriteNode!
     var wave2: SKSpriteNode!
+    var wave3: SKSpriteNode!
     //A list of all the waves currently present in the scene
     var activeWaves: [SKSpriteNode] = []
     
@@ -75,16 +74,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
         playerGuns = [gun1, gun2]
         scoreLabel = foreground.childNode(withName: "ScoreLabel") as! SKLabelNode
-        wave1Scene = SKScene(fileNamed: "wave1")
-        wave2Scene = SKScene(fileNamed: "wave2")
-        wave1 = wave1Scene.childNode(withName: "overlay") as! SKSpriteNode
-        wave2 = wave2Scene.childNode(withName: "overlay") as! SKSpriteNode
+        wave1 = SKScene(fileNamed: "wave1")?.childNode(withName: "overlay") as! SKSpriteNode
+        wave2 = SKScene(fileNamed: "wave2")?.childNode(withName: "overlay") as! SKSpriteNode
+        wave3 = SKScene(fileNamed: "wave3")?.childNode(withName: "overlay") as! SKSpriteNode
         
         //Each tuple is ((wave scene variable), (whether or not it's flipped on y-axis))
         //This lets you add more than one wave option for waves in which flipping it on the y-axis could
         //represent an additional disparate wave.
         //Wave1: can be flipped. Wave2: cannot.
-        waveSet = [(wave1, true), (wave1, false), (wave2, false)]
+        waveSet = [(wave3, true), (wave3, false)]
         
         //Initialize physics contact system
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
@@ -164,7 +162,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 wavesParent.addChild(currentWave)
             }
         }
-        
         for wave in activeWaves {
             wave.position.y -= 3
             //If it's below the screen, delete it, as the overlay object does not have a physicsBody
@@ -200,7 +197,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         if (frameCount % weapon.getFireRate() == 0) {
                             let bullet: SKEmitterNode = weapon.getBullet().copy() as! SKEmitterNode
                             let pos = weapon.parent?.convert(weapon.position, to: self)
-                            let rotation = weapon.zRotation
+                            var rotationMod: CGFloat = 0
+                            if (weapon.getVariation() > 0) {
+                                //Modify the rotation of the firing direction by the variability of the weapon -
+                                //specifically, generate a random number between 0 and the variability, then
+                                //subtract that from half the variation. For instance, a variability range of sixty
+                                //might generate 59 as it's value, but as this algorithm doesn't go into negatives,
+                                //what we actually want this to produce is a value of 29. As such, we subtract 30
+                                //from 59 in this example.
+                                rotationMod = CGFloat(arc4random_uniform(UInt32(weapon.getVariation() - 1) + 1))
+                                    - CGFloat(weapon.getVariation() / 2)
+                            }
+                            let rotation = toDegrees(radians: weapon.zRotation) + rotationMod
                             let impulseMag = sqrt(pow(weapon.getImpulse().dx, 2) + pow(weapon.getImpulse().dy, 2))
                             var yMod: CGFloat = 1
                             var xMod: CGFloat = 1
@@ -215,8 +223,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
                             bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
                             bulletLayer.addChild(bullet)
-                            bullet.physicsBody?.applyImpulse(CGVector(dx: impulseMag * sin(rotation) * xMod,
-                                                                      dy: impulseMag * cos(rotation) * yMod))
+                            bullet.physicsBody?.applyImpulse(CGVector(dx: impulseMag * sin(degrees: rotation) * xMod,
+                                                                      dy: impulseMag * cos(degrees: rotation) * yMod))
                         }
                     }
                 }
@@ -231,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let bullet = SKEmitterNode(fileNamed: "Bullet1.sks")
             bullet?.position = CGPoint(x: player.position.x + gun.position.x,
                                        y: player.position.y + gun.position.y)
-            let rotation = gun.zRotation
+            let rotation = toDegrees(radians: gun.zRotation)
             let impulseMag: CGFloat = 1
             bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 2)
             bullet?.physicsBody?.affectedByGravity = false
@@ -242,8 +250,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bulletLayer.addChild(bullet!)
             bullet?.zPosition = 5
             bullet?.particleZPosition = 5
-            bullet?.physicsBody?.applyImpulse(CGVector(dx: sin(rotation) * impulseMag,
-                                                       dy: cos(rotation) * impulseMag))
+            bullet?.physicsBody?.applyImpulse(CGVector(dx: sin(degrees: rotation) * impulseMag,
+                                                       dy: cos(degrees: rotation) * impulseMag))
         }
     }
     
@@ -285,8 +293,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 shockwave?.run(shockWaveAction)
                 //Remove bullet from array
                 return true
-            } else if (node?.name == "Enemy1"
-                || node?.name == "Enemy2") {
+            } else if (node?.name == "Enemy") {
                 //Update score
                 score += 7
                 //Lower the enemy's health - if below 0, kill it
@@ -296,14 +303,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if (currentHealth - damage > 0) {
                         node?.userData?.setValue(currentHealth - damage, forKey: "health")
                         return false
-                    } else {
-                        
-                        //If the scoreValue property is initialized, add it to main score.
+                    } else {                        //If the scoreValue property is initialized, add it to main score.
                         if let addScore = node?.userData?.value(forKey: "scoreValue") as? Int {
                             score += addScore
                         } else {
                             print ("Issue initializing scoreValue property.")
-                            return true
+                        }
+                        for remNode in (node?.physicsBody?.allContactedBodies())! {
+                            remNode.node!.removeFromParent()
                         }
                         return true
                     }
@@ -314,14 +321,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         //If enemy bullets collide with player
-        if ((node?.name == "cannonBullet" && node2?.name == "playerHitbox")
-            || (node2?.name == "cannonBullet" && node?.name == "playerHitbox")) {
+        if ((node?.name == "enemyBullet" && node2?.name == "playerHitbox")
+            || (node2?.name == "enemyBullet" && node?.name == "playerHitbox")) {
             restartGame()
-        } else if ((node?.name == "Enemy1" && node2?.name == "playerHitbox")
-            || (node2?.name == "Enemy1" && node?.name == "playerHitbox")) {
-            restartGame()
-        } else if ((node?.name == "Enemy2" && node2?.name == "playerHitbox")
-            || (node2?.name == "Enemy2" && node?.name == "playerHitbox")) {
+        } else if ((node?.name == "Enemy" && node2?.name == "playerHitbox")
+            || (node2?.name == "Enemy" && node?.name == "playerHitbox")) {
             restartGame()
         }
         
@@ -352,6 +356,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             vc?.present(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    func toDegrees(radians: CGFloat) -> CGFloat {
+        return CGFloat((Double(radians) / Double.pi) * 180.0)
+    }
+    
+    func sin(degrees: CGFloat) -> CGFloat {
+        return CGFloat(Darwin.sin(Double(degrees) * Double.pi / 180.0))
+    }
+    
+    func cos(degrees: CGFloat) -> CGFloat {
+        return CGFloat(Darwin.cos(Double(degrees) * Double.pi / 180.0))
     }
     
 }

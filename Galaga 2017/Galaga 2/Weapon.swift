@@ -25,7 +25,7 @@ class Weapon: SKSpriteNode {
     }
     var bulletName: String {
         get {
-            return "genericBullet"
+            return "enemyBullet"
         }
     }
     //When fired, which speed to go (sign signifies direction)
@@ -35,6 +35,12 @@ class Weapon: SKSpriteNode {
     var categoryMask: UInt32 {
         get {
             return 4
+        }
+    }
+    //The variability of the projection direction in degrees.
+    var variation: Int {
+        get {
+            return 0
         }
     }
     
@@ -73,6 +79,9 @@ class Weapon: SKSpriteNode {
     func getCategoryMask() -> UInt32 {
         return categoryMask
     }
-
+    
+    func getVariation() -> Int {
+        return variation
+    }
     
 }
