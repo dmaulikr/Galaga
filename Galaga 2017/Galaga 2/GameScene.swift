@@ -198,6 +198,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let bullet = SKEmitterNode(fileNamed: "Bullet1.sks")
             bullet?.position = CGPoint(x: player.position.x + gun.position.x,
                                        y: player.position.y + gun.position.y)
+            let rotation = gun.zRotation
+            let impulseMag: CGFloat = 1
             bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 2)
             bullet?.physicsBody?.affectedByGravity = false
             bullet?.physicsBody?.contactTestBitMask = 1
@@ -207,7 +209,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bulletLayer.addChild(bullet!)
             bullet?.zPosition = 5
             bullet?.particleZPosition = 5
-            bullet?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 1))
+            bullet?.physicsBody?.applyImpulse(CGVector(dx: sin(rotation) * impulseMag,
+                                                       dy: cos(rotation) * impulseMag))
             bullets.append(bullet!)
         }
         for bullet in bullets {
