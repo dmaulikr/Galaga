@@ -31,7 +31,7 @@
          contextName = "GameScene.handleNodeCollision(node : SKNode?, node2 : SKNode?) -&gt; Bool:GameScene.swift">
          <PersistentStrings>
             <PersistentString
-               value = "node?.name">
+               value = "remNode.node?.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

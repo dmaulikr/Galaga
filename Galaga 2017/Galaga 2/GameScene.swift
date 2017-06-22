@@ -30,7 +30,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var moving = false
     var mainTouch: UITouch? = nil
     var guns: [SKSpriteNode] = []
-    var bullets: [SKEmitterNode] = []
     var frameCount = 0
     
     var waveScene: SKScene!
@@ -211,13 +210,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet?.particleZPosition = 5
             bullet?.physicsBody?.applyImpulse(CGVector(dx: sin(rotation) * impulseMag,
                                                        dy: cos(rotation) * impulseMag))
-            bullets.append(bullet!)
-        }
-        for bullet in bullets {
-            if (bullet.position.y > gameHeight + 20) {
-                bullet.removeFromParent()
-                bullets.removeFirst() //hacky if bullets move at different speeds
-            }
         }
     }
     
@@ -299,6 +291,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             || (node2?.name == "Enemy2" && node?.name == "playerHitbox")) {
             restartGame()
         }
+        
+        //If anything collides with the world barrier
+        if (node?.name == "Barrier") {
+            for remNode in (node?.physicsBody?.allContactedBodies())! {
+                remNode.node?.removeFromParent()
+            }
+            node2?.removeFromParent()
+        } else if (node2?.name == "Barrier") {
+            node?.removeFromParent()
+        }
+        
+        //Default exit condition
         return false
     }
     
@@ -311,6 +315,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.bulletLayer.removeAllChildren()
             self.currentWave = self.wave1.copy() as! SKSpriteNode
             self.addChild(self.currentWave)
+            self.frameCount = 0
             self.view?.isPaused = false
         })
         let vc = self.view?.window?.rootViewController
