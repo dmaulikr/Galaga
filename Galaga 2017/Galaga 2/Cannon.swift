@@ -14,7 +14,7 @@ class Cannon: Weapon {
     
     override var fireRate: Int {
         get {
-            return 120
+            return 32
         }
     }
     override var bulletFile: String {
@@ -25,7 +25,7 @@ class Cannon: Weapon {
     //When fired, which speed to go (sign signifies direction)
     override var impulse: CGVector {
         get {
-            return CGVector(dx: 0, dy: -0.15)
+            return CGVector(dx: 0, dy: -0.10)
         }
     }
     

@@ -147,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         //Waves of length is 12s
-        if (frameCount % 480 == 0) {
+        if (frameCount % 300 == 0) {
             //As long as there are waves, spawn them. Pick one randomly from the set of possible waves.
             if (waveSet.count != 0) {
                 let index = Int(arc4random_uniform(UInt32(waveSet.count)))
@@ -256,68 +256,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        let delA = handleNodeCollision(node: contact.bodyA.node, node2: contact.bodyB.node)
-        let delB = handleNodeCollision(node: contact.bodyB.node, node2: contact.bodyA.node)
-        //Below is so that the second handleCollision function can be run while the first node is still active
-        //if otherwise it would have been deleted during the running of the first handleCollision function.
-        if (delA) {
-            if (contact.bodyA.node != nil) {
-                contact.bodyA.node?.removeFromParent()
-            }
-        }
-        if (delB) {
-            if (contact.bodyB.node != nil) {
-                contact.bodyB.node?.removeFromParent()
-            }
-        }
-    }
-    
-    //Returns whether or not to remove the node after function completion.
-    func handleNodeCollision(node: SKNode?, node2: SKNode?) -> Bool {
+        let node = contact.bodyA.node
+        let node2 = contact.bodyB.node
         guard node != nil else {
-            return false
+            return
         }
         guard node2 != nil else {
-            return false
+            return
         }
         //If a bullet and enemy ship collide, ship and ship, or bullet and bullet collide
+        //We only deal with bullet and enemy, because others shouldn't theoretically happen
         if (node?.physicsBody?.contactTestBitMask == 1
             && node2?.physicsBody?.contactTestBitMask == 1) {
-            if (node?.name == "bullet") {
-                //Create a shockwave
-                let shockwave = SKEmitterNode(fileNamed: "Bullet1Splash")
-                shockwave!.position = node!.position
-                shockwave?.particleZPosition = 5
-                shockwave?.zPosition = 5
-                node?.parent?.addChild(shockwave!)
-                shockwave?.run(shockWaveAction)
-                //Remove bullet from array
-                return true
-            } else if (node?.name == "Enemy") {
+            if (node?.name == "Enemy" && node2?.name == "bullet"
+                || node2?.name == "Enemy" && node?.name == "bullet") {
+                var enemy: SKNode
+                var bullet: SKNode
+                if (node?.name == "Enemy") {
+                    enemy = node!
+                    bullet = node2!
+                } else {
+                    enemy = node2!
+                    bullet = node!
+                }
+                genShockwave(node: bullet)
                 //Update score
                 score += 7
                 //Lower the enemy's health - if below 0, kill it
-                if let currentHealth = node?.userData?.value(forKey: "health") as? Int {
-                    //TEMP: Implement different damges by bullet type.
-                    let damage = 5
+                if let currentHealth = enemy.userData?.value(forKey: "health") as? Int {
+                    //Here, you would implement different damages by bullet type.
+                    //Right now, any player-emitted bullet does the same damage.
+                    let damage = 4
+                    //If the enemy survives
                     if (currentHealth - damage > 0) {
-                        node?.userData?.setValue(currentHealth - damage, forKey: "health")
-                        return false
-                    } else {                        //If the scoreValue property is initialized, add it to main score.
+                        enemy.userData?.setValue(currentHealth - damage, forKey: "health")
+                    } else {
+                        //If the enemy's scoreValue (score given on death) property is initialized, add it to main score.
                         if let addScore = node?.userData?.value(forKey: "scoreValue") as? Int {
                             score += addScore
-                        } else {
-                            print ("Issue initializing scoreValue property.")
                         }
-                        for remNode in (node?.physicsBody?.allContactedBodies())! {
-                            remNode.node!.removeFromParent()
+                        //Kill stray bullets
+                        for body in (enemy.physicsBody?.allContactedBodies())! {
+                            body.node?.removeFromParent()
                         }
-                        return true
+                        enemy.removeFromParent()
                     }
                 } else {
                     print ("Error accessing enemy variables")
-                    return false
                 }
+                bullet.removeFromParent()
             }
         }
         //If enemy bullets collide with player
@@ -336,8 +323,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             node?.removeFromParent()
         }
         
-        //Default exit condition
-        return false
+        //If the player's bullets collide with the bullet barrier
+        if (node?.name == "BulletBarrier") {
+            if (node2?.name == "enemyBullet" || node2?.name == "bullet") {
+                node2?.removeFromParent()
+            }
+        } else if (node2?.name == "BulletBarrier") {
+            if (node?.name == "enemyBullet" || node?.name == "bullet") {
+                node?.removeFromParent()
+            }
+        }
+    }
+    
+    //Create a shockwave at the given node's position
+    func genShockwave(node: SKNode) {
+        let shockwave = SKEmitterNode(fileNamed: "Bullet1Splash")
+        shockwave!.position = node.position
+        shockwave?.particleZPosition = 5
+        shockwave?.zPosition = 5
+        shockwave?.run(shockWaveAction)
+        node.parent?.addChild(shockwave!)
     }
     
     func restartGame() {
