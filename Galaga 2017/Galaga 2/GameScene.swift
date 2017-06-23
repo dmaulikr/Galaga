@@ -123,7 +123,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchUp(atPoint pos : CGPoint, withTouch touch: UITouch) {
-        if (playerMoveHitbox.frame.contains(pos)) {
+        if (touch == mainTouch) {
             moving = false;
         }
     }

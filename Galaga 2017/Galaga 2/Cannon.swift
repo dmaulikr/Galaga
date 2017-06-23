@@ -25,7 +25,7 @@ class Cannon: Weapon {
     //When fired, which speed to go (sign signifies direction)
     override var impulse: CGVector {
         get {
-            return CGVector(dx: 0, dy: -0.2)
+            return CGVector(dx: 0, dy: -0.15)
         }
     }
     
