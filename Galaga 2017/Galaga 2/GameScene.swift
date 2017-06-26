@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var foreground: SKNode!
     var background: SKNode!
+    var playerOverlay: SKSpriteNode!
     var bulletLayer: SKNode!
     var bg1: SKSpriteNode!
     var bg2: SKSpriteNode!
@@ -37,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var wave1: SKSpriteNode!
     var wave2: SKSpriteNode!
     var wave3: SKSpriteNode!
-    //A list of all the waves currently present in the scene
+    //A list of all the waves currently present in the scene, including the player's "wave"
     var activeWaves: [SKSpriteNode] = []
     
     //The array is just a list of all the possible waves. Initialised in didMove function.
@@ -68,8 +69,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bulletLayer = foreground.childNode(withName: "Bullets")
         bg1 = background.childNode(withName: "b1") as! SKSpriteNode
         bg2 = background.childNode(withName: "b2") as! SKSpriteNode
-        player = foreground.childNode(withName: "player") as! SKSpriteNode
-        playerMoveHitbox = foreground.childNode(withName: "navcircle") as! SKSpriteNode
+        playerOverlay = foreground.childNode(withName: "playerOverlay") as! SKSpriteNode
+        player = playerOverlay.childNode(withName: "player") as! SKSpriteNode
+        playerMoveHitbox = playerOverlay.childNode(withName: "navcircle") as! SKSpriteNode
         gun1 = player.childNode(withName: "Gun1") as! SKSpriteNode
         gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
         playerGuns = [gun1, gun2]
@@ -83,6 +85,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //represent an additional disparate wave.
         //Wave1: can be flipped. Wave2: cannot.
         waveSet = [(wave1, true), (wave1, false), (wave2, false), (wave3, true), (wave3, false)]
+        
+        activeWaves.append(playerOverlay)
         
         //Initialize physics contact system
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
@@ -163,13 +167,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         for wave in activeWaves {
-            wave.position.y -= 3
-            //If it's below the screen, delete it, as the overlay object does not have a physicsBody
-            //and thus will not be deleted on contact with the barriers.
-            if (wave.position.y < gameHeight * -2) {
-                wave.removeFromParent()
-                //If any wave moves faster than any other, this won't work, and you'll need to keep track of each individual wave's index in the array and delete that one specifically. Shouldn't be a problem in current implementation.
-                activeWaves.removeFirst()
+            if (!wave.isEqual(to: playerOverlay)) {
+                wave.position.y -= 3
+                //If it's below the screen, delete it, as the overlay object does not have a physicsBody
+                //and thus will not be deleted on contact with the barriers.
+                if (wave.position.y < gameHeight * -2) {
+                    wave.removeFromParent()
+                    //If any wave moves faster than any other, this won't work, and you'll need to keep track of each individual wave's index in the array and delete that one specifically. Shouldn't be a problem in current implementation. The reason it deletes the second wave is because the first should always be the player's active wave.
+                    activeWaves.remove(at: 1)
+                }
             }
         }
         
@@ -184,9 +190,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if (bg1.position.y <= gameHeight * -2) {
             bg1.position.y = bg2.position.y + gameHeight * 2
-        }
-        if (frameCount % playerGunsFireRate == 0) {
-            fireGuns()
         }
         //For every gun in the current wave, fire
         for wave in activeWaves {
@@ -222,6 +225,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             bullet.position = pos!
                             bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
                             bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
+                            bullet.physicsBody?.contactTestBitMask = weapon.getContactTestMask()
                             bulletLayer.addChild(bullet)
                             bullet.physicsBody?.applyImpulse(CGVector(dx: impulseMag * sin(degrees: rotation) * xMod,
                                                                       dy: impulseMag * cos(degrees: rotation) * yMod))
@@ -229,29 +233,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
-        }
-    }
-    
-    //Fire the player's guns.
-    func fireGuns() {
-        for gun in playerGuns {
-            //Create a bullet
-            let bullet = SKEmitterNode(fileNamed: "Bullet1.sks")
-            bullet?.position = CGPoint(x: player.position.x + gun.position.x,
-                                       y: player.position.y + gun.position.y)
-            let rotation = toDegrees(radians: gun.zRotation)
-            let impulseMag: CGFloat = 1
-            bullet?.physicsBody = SKPhysicsBody(circleOfRadius: 2)
-            bullet?.physicsBody?.affectedByGravity = false
-            bullet?.physicsBody?.contactTestBitMask = 1
-            bullet?.physicsBody?.collisionBitMask = 1
-            bullet?.physicsBody?.categoryBitMask = 2
-            bullet?.name = "bullet"
-            bulletLayer.addChild(bullet!)
-            bullet?.zPosition = 5
-            bullet?.particleZPosition = 5
-            bullet?.physicsBody?.applyImpulse(CGVector(dx: sin(degrees: rotation) * impulseMag,
-                                                       dy: cos(degrees: rotation) * impulseMag))
         }
     }
     
@@ -352,6 +333,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.score = 0
             self.wavesParent.removeAllChildren()
             self.activeWaves.removeAll()
+            self.activeWaves.append(self.playerOverlay)
             self.bulletLayer.removeAllChildren()
             self.frameCount = 0
             self.view?.isPaused = false

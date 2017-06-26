@@ -37,6 +37,11 @@ class Weapon: SKSpriteNode {
             return 4
         }
     }
+    var contactTestMask: UInt32 {
+        get {
+            return 4
+        }
+    }
     //The variability of the projection direction in degrees.
     var variation: Int {
         get {
@@ -78,6 +83,10 @@ class Weapon: SKSpriteNode {
     
     func getCategoryMask() -> UInt32 {
         return categoryMask
+    }
+    
+    func getContactTestMask() -> UInt32 {
+        return contactTestMask
     }
     
     func getVariation() -> Int {
