@@ -14,7 +14,7 @@ class Cannon: Weapon {
     
     override var fireRate: Int {
         get {
-            return 32
+            return 48
         }
     }
     override var bulletFile: String {
@@ -26,6 +26,12 @@ class Cannon: Weapon {
     override var impulse: CGVector {
         get {
             return CGVector(dx: 0, dy: -0.10)
+        }
+    }
+    
+    override var variation: Int {
+        get {
+            return 2
         }
     }
     

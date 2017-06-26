@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode!
     
     var fingerPosTrack: CGPoint? = nil
-    let backgroundScrollSpeed = 4
+    let backgroundScrollSpeed = 3
     let gameWidth = CGFloat(425)
     let gameHeight = CGFloat(667)
     var moving = false
@@ -147,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         //Waves of length is 12s
-        if (frameCount % 300 == 0) {
+        if (frameCount % 360 == 0) {
             //As long as there are waves, spawn them. Pick one randomly from the set of possible waves.
             if (waveSet.count != 0) {
                 let index = Int(arc4random_uniform(UInt32(waveSet.count)))
