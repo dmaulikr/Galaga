@@ -30,7 +30,7 @@ class PlayerWeapon: Weapon {
     //When fired, which speed to go (sign signifies direction)
     override var impulse: CGVector {
         get {
-            return CGVector(dx: 0, dy: 0.5)
+            return CGVector(dx: 0, dy: 0.3)
         }
     }
     

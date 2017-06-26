@@ -99,6 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             fingerPosTrack = pos
             mainTouch = touch;
             moving = true;
+            playerMoveHitbox.run(SKAction.scale(to: 1.4, duration: 0.1))
         }
     }
     
@@ -129,6 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func touchUp(atPoint pos : CGPoint, withTouch touch: UITouch) {
         if (touch == mainTouch) {
             moving = false;
+            playerMoveHitbox.run(SKAction.scale(to: 1.0, duration: 0.1))
         }
     }
     
@@ -329,6 +331,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func restartGame() {
         view?.isPaused = true
         let alert = UIAlertController(title: "Game Over!", message: "Score: \(score)", preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.sourceView = self.view
         alert.addAction(UIAlertAction(title: "Restart", style: .default) { action in
             self.score = 0
             self.wavesParent.removeAllChildren()
