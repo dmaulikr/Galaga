@@ -14,7 +14,7 @@ class Repeater: Weapon {
     
     override var fireRate: Int {
         get {
-            return 15
+            return 20
         }
     }
     override var bulletFile: String {
