@@ -19,7 +19,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bg1: SKSpriteNode!
     var bg2: SKSpriteNode!
     var player: SKSpriteNode!
-    var playerMoveHitbox: SKSpriteNode!
+    var navcircle: SKSpriteNode!
+    var navcircleSpinner: SKSpriteNode!
     var gun1: SKSpriteNode!
     var gun2: SKSpriteNode!
     var scoreLabel: SKLabelNode!
@@ -71,7 +72,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bg2 = background.childNode(withName: "b2") as! SKSpriteNode
         playerOverlay = foreground.childNode(withName: "playerOverlay") as! SKSpriteNode
         player = playerOverlay.childNode(withName: "player") as! SKSpriteNode
-        playerMoveHitbox = playerOverlay.childNode(withName: "navcircle") as! SKSpriteNode
+        navcircle = playerOverlay.childNode(withName: "navcircle") as! SKSpriteNode
+        navcircleSpinner = navcircle.childNode(withName: "navcircleIndicator") as! SKSpriteNode
         gun1 = player.childNode(withName: "Gun1") as! SKSpriteNode
         gun2 = player.childNode(withName: "Gun2") as! SKSpriteNode
         playerGuns = [gun1, gun2]
@@ -95,11 +97,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func touchDown(atPoint pos : CGPoint, withTouch touch: UITouch) {
         //Consider for control schemes: current scheme, but restrict when it moves to when touch and drag is
         //just below the ship.
-        if (playerMoveHitbox.frame.contains(pos) && !moving) {
+        if (navcircle.frame.contains(pos) && !moving) {
             fingerPosTrack = pos
             mainTouch = touch;
             moving = true;
-            playerMoveHitbox.run(SKAction.scale(to: 1.4, duration: 0.1))
+            //Pop the navball out when it's touched
+            navcircle.run(SKAction.scale(to: 1.4, duration: 0.1))
+            navcircleSpinner.alpha = 1.0
+            navcircleSpinner.run(SKAction.scale(to: 0.29, duration: 0.1))
+            //Spin the spinner
+            navcircleSpinner.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(.pi * 1.5), duration: 0.5)))
         }
     }
     
@@ -121,8 +128,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 player.position.y = gameHeight - player.frame.size.height
             }
             //Move the tracking navigation circle with the player sprite
-            playerMoveHitbox.position.x = player.position.x;
-            playerMoveHitbox.position.y = player.position.y - 40 - player.size.height;
+            navcircle.position.x = player.position.x;
+            navcircle.position.y = player.position.y - 40 - player.size.height;
             fingerPosTrack = pos;
         }
     }
@@ -130,7 +137,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func touchUp(atPoint pos : CGPoint, withTouch touch: UITouch) {
         if (touch == mainTouch) {
             moving = false;
-            playerMoveHitbox.run(SKAction.scale(to: 1.0, duration: 0.1))
+            navcircle.run(SKAction.scale(to: 1.0, duration: 0.1))
+            navcircleSpinner.removeAllActions()
+            navcircleSpinner.alpha = 0.0
+            navcircleSpinner.run(SKAction.scale(to: 0.20, duration: 0.1))
         }
     }
     
@@ -238,6 +248,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //Handles collisions
     func didBegin(_ contact: SKPhysicsContact) {
         let node = contact.bodyA.node
         let node2 = contact.bodyB.node
@@ -332,6 +343,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         view?.isPaused = true
         let alert = UIAlertController(title: "Game Over!", message: "Score: \(score)", preferredStyle: .actionSheet)
         alert.popoverPresentationController?.sourceView = self.view
+        //Prevent restart popup from dismissing once the user taps outside
+        alert.isModalInPopover = true
         alert.addAction(UIAlertAction(title: "Restart", style: .default) { action in
             self.score = 0
             self.wavesParent.removeAllChildren()
@@ -345,7 +358,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if vc?.presentedViewController == nil {
             vc?.present(alert, animated: true, completion: nil)
         }
-        
     }
     
     func toDegrees(radians: CGFloat) -> CGFloat {
