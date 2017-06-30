@@ -348,6 +348,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         foreground.isPaused = true
         background.isPaused = true
         physicsWorld.speed = 0
+        //release player controls
+        moving = false;
+        navcircle.run(SKAction.scale(to: 1.0, duration: 0.1))
+        navcircleSpinner.removeAllActions()
+        navcircleSpinner.alpha = 0.0
+        navcircleSpinner.run(SKAction.scale(to: 0.20, duration: 0.1))
         let alert = UIAlertController(title: "Game Over!", message: "Score: \(score)", preferredStyle: .actionSheet)
         alert.popoverPresentationController?.sourceView = self.view
         //Prevent restart popup from dismissing once the user taps outside
