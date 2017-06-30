@@ -10,6 +10,7 @@
 		84003B801EF47C52006B3441 /* Bullet1Splash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */; };
 		84003B821EF81603006B3441 /* wave1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84003B811EF81603006B3441 /* wave1.sks */; };
 		8415EF461EFC27CC00648576 /* wave2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8415EF451EFC27CC00648576 /* wave2.sks */; };
+		84218F571F068CCC00CD36DB /* Capacitor.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84218F561F068CCC00CD36DB /* Capacitor.mp3 */; };
 		8437DE081EF9A5D700AC7890 /* CannonBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8437DE071EF9A5D700AC7890 /* CannonBullet.sks */; };
 		84600EA41EF99361008520B2 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EA31EF99361008520B2 /* Weapon.swift */; };
 		846DB9821EFC56FD0019EC38 /* RepeaterBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 846DB9801EFC56FD0019EC38 /* RepeaterBullet.sks */; };
@@ -50,6 +51,7 @@
 		84003B7F1EF47C52006B3441 /* Bullet1Splash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bullet1Splash.sks; sourceTree = "<group>"; };
 		84003B811EF81603006B3441 /* wave1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave1.sks; sourceTree = "<group>"; };
 		8415EF451EFC27CC00648576 /* wave2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wave2.sks; sourceTree = "<group>"; };
+		84218F561F068CCC00CD36DB /* Capacitor.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Capacitor.mp3; path = ../../../../Downloads/Capacitor.mp3; sourceTree = "<group>"; };
 		8437DE071EF9A5D700AC7890 /* CannonBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CannonBullet.sks; sourceTree = "<group>"; };
 		84600EA31EF99361008520B2 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		846DB9801EFC56FD0019EC38 /* RepeaterBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RepeaterBullet.sks; sourceTree = "<group>"; };
@@ -100,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84218F581F068CD300CD36DB /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				84218F561F068CCC00CD36DB /* Capacitor.mp3 */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
 		84600EA21EF95F2C008520B2 /* Weapons */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 		84A490CB1EF3021E00538FC9 /* Convex Core */ = {
 			isa = PBXGroup;
 			children = (
+				84218F581F068CD300CD36DB /* Sound */,
 				84E609711EF8466A00DAA813 /* System */,
 				84A491081EF463E200538FC9 /* Components */,
 				84A491011EF4444A00538FC9 /* Particle systems */,
@@ -308,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A490D81EF3021E00538FC9 /* Main.storyboard in Resources */,
+				84218F571F068CCC00CD36DB /* Capacitor.mp3 in Resources */,
 				8415EF461EFC27CC00648576 /* wave2.sks in Resources */,
 				84A491031EF4447700538FC9 /* Bullet1.sks in Resources */,
 				8437DE081EF9A5D700AC7890 /* CannonBullet.sks in Resources */,

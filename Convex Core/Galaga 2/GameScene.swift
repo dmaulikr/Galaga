@@ -90,6 +90,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         activeWaves.append(playerOverlay)
         
+        let backgroundMusic = SKAudioNode(fileNamed: "Capacitor.mp3")
+        backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
         //Initialize physics contact system
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
     }
@@ -162,85 +165,87 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        //Waves of length is 12s
-        if (frameCount % 360 == 0) {
-            //As long as there are waves, spawn them. Pick one randomly from the set of possible waves.
-            if (waveSet.count != 0) {
-                let index = Int(arc4random_uniform(UInt32(waveSet.count)))
-                let currentWave = waveSet[index].node.copy() as! SKSpriteNode
-                //If the wave needs to be flipped along the y-axis, flip the y-index of all children accordingly.
-                if (waveSet[index].flipY) {
-                    for node in currentWave.children {
-                        node.position.y *= -1
+        if (!foreground.isPaused && !background.isPaused) {
+            //Waves of length is 12s
+            if (frameCount % 360 == 0) {
+                //As long as there are waves, spawn them. Pick one randomly from the set of possible waves.
+                if (waveSet.count != 0) {
+                    let index = Int(arc4random_uniform(UInt32(waveSet.count)))
+                    let currentWave = waveSet[index].node.copy() as! SKSpriteNode
+                    //If the wave needs to be flipped along the y-axis, flip the y-index of all children accordingly.
+                    if (waveSet[index].flipY) {
+                        for node in currentWave.children {
+                            node.position.y *= -1
+                        }
+                    }
+                    activeWaves.append(currentWave)
+                    wavesParent.addChild(currentWave)
+                }
+            }
+            for wave in activeWaves {
+                if (!wave.isEqual(to: playerOverlay)) {
+                    wave.position.y -= 3
+                    //If it's below the screen, delete it, as the overlay object does not have a physicsBody
+                    //and thus will not be deleted on contact with the barriers.
+                    if (wave.position.y < gameHeight * -2) {
+                        wave.removeFromParent()
+                        //If any wave moves faster than any other, this won't work, and you'll need to keep track of each individual wave's index in the array and delete that one specifically. Shouldn't be a problem in current implementation. The reason it deletes the second wave is because the first should always be the player's active wave.
+                        activeWaves.remove(at: 1)
                     }
                 }
-                activeWaves.append(currentWave)
-                wavesParent.addChild(currentWave)
             }
-        }
-        for wave in activeWaves {
-            if (!wave.isEqual(to: playerOverlay)) {
-                wave.position.y -= 3
-                //If it's below the screen, delete it, as the overlay object does not have a physicsBody
-                //and thus will not be deleted on contact with the barriers.
-                if (wave.position.y < gameHeight * -2) {
-                    wave.removeFromParent()
-                    //If any wave moves faster than any other, this won't work, and you'll need to keep track of each individual wave's index in the array and delete that one specifically. Shouldn't be a problem in current implementation. The reason it deletes the second wave is because the first should always be the player's active wave.
-                    activeWaves.remove(at: 1)
-                }
+            
+            frameCount += 1
+            //Adjust the background by the speed of the scroll
+            bg1.position.y -= CGFloat(backgroundScrollSpeed)
+            bg2.position.y -= CGFloat(backgroundScrollSpeed)
+            
+            //If any of the two backgrounds are below the display, move them back above the other.
+            if (bg2.position.y <= gameHeight * -2) {
+                bg2.position.y = bg1.position.y + gameHeight * 2
             }
-        }
-        
-        frameCount += 1
-        //Adjust the background by the speed of the scroll
-        bg1.position.y -= CGFloat(backgroundScrollSpeed)
-        bg2.position.y -= CGFloat(backgroundScrollSpeed)
-        
-        //If any of the two backgrounds are below the display, move them back above the other.
-        if (bg2.position.y <= gameHeight * -2) {
-            bg2.position.y = bg1.position.y + gameHeight * 2
-        }
-        if (bg1.position.y <= gameHeight * -2) {
-            bg1.position.y = bg2.position.y + gameHeight * 2
-        }
-        //For every gun in the current wave, fire
-        for wave in activeWaves {
-            for enemy in wave.children {
-                for gun: SKNode in enemy.children {
-                    if let weapon = gun as? Weapon {
-                        //If it's the right frame, fire
-                        if (frameCount % weapon.getFireRate() == 0) {
-                            let bullet: SKEmitterNode = weapon.getBullet().copy() as! SKEmitterNode
-                            let pos = weapon.parent?.convert(weapon.position, to: self)
-                            var rotationMod: CGFloat = 0
-                            if (weapon.getVariation() > 0) {
-                                //Modify the rotation of the firing direction by the variability of the weapon -
-                                //specifically, generate a random number between 0 and the variability, then
-                                //subtract that from half the variation. For instance, a variability range of sixty
-                                //might generate 59 as it's value, but as this algorithm doesn't go into negatives,
-                                //what we actually want this to produce is a value of 29. As such, we subtract 30
-                                //from 59 in this example.
-                                rotationMod = CGFloat(arc4random_uniform(UInt32(weapon.getVariation() - 1) + 1))
-                                    - CGFloat(weapon.getVariation() / 2)
+            if (bg1.position.y <= gameHeight * -2) {
+                bg1.position.y = bg2.position.y + gameHeight * 2
+            }
+            //For every gun in the current wave, fire
+            for wave in activeWaves {
+                for enemy in wave.children {
+                    for gun: SKNode in enemy.children {
+                        if let weapon = gun as? Weapon {
+                            //If it's the right frame, fire
+                            if (frameCount % weapon.getFireRate() == 0) {
+                                let bullet: SKEmitterNode = weapon.getBullet().copy() as! SKEmitterNode
+                                let pos = weapon.parent?.convert(weapon.position, to: self)
+                                var rotationMod: CGFloat = 0
+                                if (weapon.getVariation() > 0) {
+                                    //Modify the rotation of the firing direction by the variability of the weapon -
+                                    //specifically, generate a random number between 0 and the variability, then
+                                    //subtract that from half the variation. For instance, a variability range of sixty
+                                    //might generate 59 as it's value, but as this algorithm doesn't go into negatives,
+                                    //what we actually want this to produce is a value of 29. As such, we subtract 30
+                                    //from 59 in this example.
+                                    rotationMod = CGFloat(arc4random_uniform(UInt32(weapon.getVariation() - 1) + 1))
+                                        - CGFloat(weapon.getVariation() / 2)
+                                }
+                                let rotation = toDegrees(radians: weapon.zRotation) + rotationMod
+                                let impulseMag = sqrt(pow(weapon.getImpulse().dx, 2) + pow(weapon.getImpulse().dy, 2))
+                                var yMod: CGFloat = 1
+                                var xMod: CGFloat = 1
+                                //Magnitude ignores negatives, so check if they're negative and adjust them later
+                                if (weapon.getImpulse().dy < 0) {
+                                    yMod = -1
+                                }
+                                if (weapon.getImpulse().dx < 0) {
+                                    xMod = -1
+                                }
+                                bullet.position = pos!
+                                bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
+                                bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
+                                bullet.physicsBody?.contactTestBitMask = weapon.getContactTestMask()
+                                bulletLayer.addChild(bullet)
+                                bullet.physicsBody?.applyImpulse(CGVector(dx: impulseMag * sin(degrees: rotation) * xMod,
+                                                                          dy: impulseMag * cos(degrees: rotation) * yMod))
                             }
-                            let rotation = toDegrees(radians: weapon.zRotation) + rotationMod
-                            let impulseMag = sqrt(pow(weapon.getImpulse().dx, 2) + pow(weapon.getImpulse().dy, 2))
-                            var yMod: CGFloat = 1
-                            var xMod: CGFloat = 1
-                            //Magnitude ignores negatives, so check if they're negative and adjust them later
-                            if (weapon.getImpulse().dy < 0) {
-                                yMod = -1
-                            }
-                            if (weapon.getImpulse().dx < 0) {
-                                xMod = -1
-                            }
-                            bullet.position = pos!
-                            bullet.physicsBody?.categoryBitMask = weapon.getCategoryMask()
-                            bullet.physicsBody?.collisionBitMask = weapon.getCategoryMask()
-                            bullet.physicsBody?.contactTestBitMask = weapon.getContactTestMask()
-                            bulletLayer.addChild(bullet)
-                            bullet.physicsBody?.applyImpulse(CGVector(dx: impulseMag * sin(degrees: rotation) * xMod,
-                                                                      dy: impulseMag * cos(degrees: rotation) * yMod))
                         }
                     }
                 }
@@ -340,7 +345,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func restartGame() {
-        view?.isPaused = true
+        foreground.isPaused = true
+        background.isPaused = true
+        physicsWorld.speed = 0
         let alert = UIAlertController(title: "Game Over!", message: "Score: \(score)", preferredStyle: .actionSheet)
         alert.popoverPresentationController?.sourceView = self.view
         //Prevent restart popup from dismissing once the user taps outside
@@ -352,7 +359,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.activeWaves.append(self.playerOverlay)
             self.bulletLayer.removeAllChildren()
             self.frameCount = 0
-            self.view?.isPaused = false
+            self.foreground.isPaused = false
+            self.background.isPaused = false
+            self.physicsWorld.speed = 1
+            self.bulletLayer.removeAllChildren()
         })
         let vc = self.view?.window?.rootViewController
         if vc?.presentedViewController == nil {
