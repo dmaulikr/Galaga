@@ -2,8 +2,20 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    
+    var foreground: SKNode!
+    var background: SKNode!
+    var player: SKSpriteNode!
+    var navcircle: SKSpriteNode!
+    var moving = false
+    var mainTouch: UITouch? = nil
+    var lastMainTouchPosition: CGPoint? = nil
+    
     override func didMove(to view: SKView) {
-        
+        foreground = childNode(withName: "Foreground")!
+        background = childNode(withName: "Background")!
+        player = foreground.childNode(withName: "Player") as! SKSpriteNode
+        navcircle = player.childNode(withName: "Navcircle") as! SKSpriteNode
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
