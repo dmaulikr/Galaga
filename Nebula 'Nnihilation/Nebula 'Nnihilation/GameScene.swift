@@ -33,9 +33,7 @@ class GameScene: SKScene {
         }
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let touchPosition = touch.location(in: self)
-        }
+
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         
