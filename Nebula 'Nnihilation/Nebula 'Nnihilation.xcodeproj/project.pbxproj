@@ -207,6 +207,7 @@
 				TargetAttributes = {
 					84218F611F0E78B200CD36DB = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = VQGZ978Q6B;
 						ProvisioningStyle = Automatic;
 					};
 					84218F7B1F0E78B300CD36DB = {
@@ -430,7 +431,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = VQGZ978Q6B;
 				INFOPLIST_FILE = "Nebula 'Nnihilation/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "App-Camp.Nebula--Nnihilation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -442,7 +445,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = VQGZ978Q6B;
 				INFOPLIST_FILE = "Nebula 'Nnihilation/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "App-Camp.Nebula--Nnihilation";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -523,6 +528,7 @@
 				84218F921F0E78B300CD36DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84218F931F0E78B300CD36DB /* Build configuration list for PBXNativeTarget "Nebula 'NnihilationTests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +537,7 @@
 				84218F951F0E78B300CD36DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84218F961F0E78B300CD36DB /* Build configuration list for PBXNativeTarget "Nebula 'NnihilationUITests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +546,7 @@
 				84218F981F0E78B300CD36DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
