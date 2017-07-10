@@ -9,9 +9,12 @@ class GameScene: SKScene {
     var navcircle: SKSpriteNode!
     var moving = false
     var navcircleTouch: UITouch? = nil
-    var lastMainTouchPosition: CGPoint? = nil
+    var lastTouchPosition: CGPoint? = nil
+    let gameWidth = CGFloat(425)
+    let gameHeight = CGFloat(667)
     
     override func didMove(to view: SKView) {
+        isUserInteractionEnabled = true
         foreground = childNode(withName: "Foreground")!
         background = childNode(withName: "Background")!
         player = foreground.childNode(withName: "Player") as! SKSpriteNode
@@ -20,8 +23,9 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchPosition = touch.location(in: self)
-            if (navcircle.frame.contains(touchPosition) && !moving) {
-                lastMainTouchPosition = touchPosition
+            let touchPositionInPlayerFrame = convert(touchPosition, to: player)
+            if (navcircle.frame.contains(touchPositionInPlayerFrame) && !moving) {
+                lastTouchPosition = touchPosition
                 navcircleTouch = touch;
                 moving = true;
             }
@@ -30,13 +34,29 @@ class GameScene: SKScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchPosition = touch.location(in: self)
+            if (moving && touch.isEqual(navcircleTouch)) {
+                //Move the player by as much as the finger's moved, then reset the baseline
+                player.position.x = player.position.x - (lastTouchPosition!.x - touchPosition.x)
+                player.position.y = player.position.y - (lastTouchPosition!.y - touchPosition.y)
+                lastTouchPosition = touchPosition;
+            }
         }
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+        for touch in touches {
+            if (moving && touch.isEqual(navcircleTouch)) {
+                navcircleTouch = nil
+                moving = false
+            }
+        }
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        for touch in touches {
+            if (moving && touch.isEqual(navcircleTouch)) {
+                navcircleTouch = nil
+                moving = false
+            }
+        }
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
