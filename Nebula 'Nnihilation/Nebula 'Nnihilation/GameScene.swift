@@ -13,8 +13,8 @@ class GameScene: SKScene {
     var moving = false
     var navcircleTouch: UITouch? = nil
     var lastTouchPosition: CGPoint? = nil
-    let gameWidth = CGFloat(425)
-    let gameHeight = CGFloat(667)
+    let gameWidth = CGFloat(850)
+    let gameHeight = CGFloat(1334)
     
     override func didMove(to view: SKView) {
         isUserInteractionEnabled = true
@@ -65,5 +65,13 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        backgroundImage1.position.y -= 3
+        backgroundImage2.position.y -= 3
+        if (backgroundImage1.position.y < gameHeight * -1) {
+            backgroundImage1.position.y = backgroundImage2.position.y + gameHeight
+        }
+        if (backgroundImage2.position.y < gameHeight * -1) {
+            backgroundImage2.position.y = backgroundImage1.position.y + gameHeight
+        }
     }
 }
