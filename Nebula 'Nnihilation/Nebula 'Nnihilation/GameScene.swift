@@ -7,6 +7,9 @@ class GameScene: SKScene {
     var background: SKNode!
     var player: SKSpriteNode!
     var navcircle: SKSpriteNode!
+    var backgroundImage1: SKSpriteNode!
+    var backgroundImage2: SKSpriteNode!
+    
     var moving = false
     var navcircleTouch: UITouch? = nil
     var lastTouchPosition: CGPoint? = nil
@@ -19,6 +22,8 @@ class GameScene: SKScene {
         background = childNode(withName: "Background")!
         player = foreground.childNode(withName: "Player") as! SKSpriteNode
         navcircle = player.childNode(withName: "Navcircle") as! SKSpriteNode
+        backgroundImage1 = background.childNode(withName: "Background1") as! SKSpriteNode
+        backgroundImage2 = background.childNode(withName: "Background2") as! SKSpriteNode
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
