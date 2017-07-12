@@ -12,6 +12,6 @@ protocol Enemy {
     
     var health: Int { get }
     
-    var scoreValue: Int { get set }
+    var scoreValue: Int { get }
     
 }
