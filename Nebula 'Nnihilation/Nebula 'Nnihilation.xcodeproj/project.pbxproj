@@ -17,6 +17,7 @@
 		84218F811F0E78B300CD36DB /* Nebula__NnihilationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F801F0E78B300CD36DB /* Nebula__NnihilationTests.swift */; };
 		84218F8C1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */; };
 		84897FE41F166558001B67C5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE31F166558001B67C5 /* Enemy.swift */; };
+		84897FE61F166BE4001B67C5 /* EnemyType1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE51F166BE4001B67C5 /* EnemyType1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nebula__NnihilationUITests.swift; sourceTree = "<group>"; };
 		84218F8D1F0E78B300CD36DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84897FE31F166558001B67C5 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		84897FE51F166BE4001B67C5 /* EnemyType1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyType1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,11 +105,12 @@
 		84218F641F0E78B200CD36DB /* Nebula 'Nnihilation */ = {
 			isa = PBXGroup;
 			children = (
-				84897FE31F166558001B67C5 /* Enemy.swift */,
 				84218F991F0E7AB800CD36DB /* System */,
 				84218F671F0E78B200CD36DB /* GameScene.sks */,
 				84218F6B1F0E78B200CD36DB /* GameScene.swift */,
 				84218F721F0E78B200CD36DB /* Assets.xcassets */,
+				84897FE31F166558001B67C5 /* Enemy.swift */,
+				84897FE81F166C69001B67C5 /* Enemies */,
 			);
 			path = "Nebula 'Nnihilation";
 			sourceTree = "<group>";
@@ -140,6 +143,14 @@
 				84218F771F0E78B200CD36DB /* Info.plist */,
 			);
 			name = System;
+			sourceTree = "<group>";
+		};
+		84897FE81F166C69001B67C5 /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				84897FE51F166BE4001B67C5 /* EnemyType1.swift */,
+			);
+			name = Enemies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84897FE61F166BE4001B67C5 /* EnemyType1.swift in Sources */,
 				84897FE41F166558001B67C5 /* Enemy.swift in Sources */,
 				84218F6C1F0E78B200CD36DB /* GameScene.swift in Sources */,
 				84218F6E1F0E78B200CD36DB /* GameViewController.swift in Sources */,
