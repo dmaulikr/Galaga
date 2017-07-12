@@ -16,6 +16,7 @@
 		84218F761F0E78B200CD36DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84218F741F0E78B200CD36DB /* LaunchScreen.storyboard */; };
 		84218F811F0E78B300CD36DB /* Nebula__NnihilationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F801F0E78B300CD36DB /* Nebula__NnihilationTests.swift */; };
 		84218F8C1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */; };
+		84897FE41F166558001B67C5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE31F166558001B67C5 /* Enemy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		84218F871F0E78B300CD36DB /* Nebula 'NnihilationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Nebula 'NnihilationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nebula__NnihilationUITests.swift; sourceTree = "<group>"; };
 		84218F8D1F0E78B300CD36DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84897FE31F166558001B67C5 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		84218F641F0E78B200CD36DB /* Nebula 'Nnihilation */ = {
 			isa = PBXGroup;
 			children = (
+				84897FE31F166558001B67C5 /* Enemy.swift */,
 				84218F991F0E7AB800CD36DB /* System */,
 				84218F671F0E78B200CD36DB /* GameScene.sks */,
 				84218F6B1F0E78B200CD36DB /* GameScene.swift */,
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84897FE41F166558001B67C5 /* Enemy.swift in Sources */,
 				84218F6C1F0E78B200CD36DB /* GameScene.swift in Sources */,
 				84218F6E1F0E78B200CD36DB /* GameViewController.swift in Sources */,
 				84218F661F0E78B200CD36DB /* AppDelegate.swift in Sources */,
