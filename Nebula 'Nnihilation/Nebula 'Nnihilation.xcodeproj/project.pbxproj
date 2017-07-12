@@ -18,6 +18,7 @@
 		84218F8C1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */; };
 		84897FE41F166558001B67C5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE31F166558001B67C5 /* Enemy.swift */; };
 		84897FE61F166BE4001B67C5 /* EnemyType1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE51F166BE4001B67C5 /* EnemyType1.swift */; };
+		84897FEB1F1682FD001B67C5 /* Wave1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84897FEA1F1682FD001B67C5 /* Wave1.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		84218F8D1F0E78B300CD36DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84897FE31F166558001B67C5 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		84897FE51F166BE4001B67C5 /* EnemyType1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyType1.swift; sourceTree = "<group>"; };
+		84897FEA1F1682FD001B67C5 /* Wave1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Wave1.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				84218F721F0E78B200CD36DB /* Assets.xcassets */,
 				84897FE31F166558001B67C5 /* Enemy.swift */,
 				84897FE81F166C69001B67C5 /* Enemies */,
+				84897FE91F1682DC001B67C5 /* Waves */,
 			);
 			path = "Nebula 'Nnihilation";
 			sourceTree = "<group>";
@@ -151,6 +154,14 @@
 				84897FE51F166BE4001B67C5 /* EnemyType1.swift */,
 			);
 			name = Enemies;
+			sourceTree = "<group>";
+		};
+		84897FE91F1682DC001B67C5 /* Waves */ = {
+			isa = PBXGroup;
+			children = (
+				84897FEA1F1682FD001B67C5 /* Wave1.sks */,
+			);
+			name = Waves;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84897FEB1F1682FD001B67C5 /* Wave1.sks in Resources */,
 				84218F711F0E78B200CD36DB /* Main.storyboard in Resources */,
 				84218F681F0E78B200CD36DB /* GameScene.sks in Resources */,
 				84218F731F0E78B200CD36DB /* Assets.xcassets in Resources */,
