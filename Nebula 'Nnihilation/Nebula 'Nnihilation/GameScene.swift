@@ -9,12 +9,14 @@ class GameScene: SKScene {
     var navcircle: SKSpriteNode!
     var backgroundImage1: SKSpriteNode!
     var backgroundImage2: SKSpriteNode!
+    var enemyWaveTemplate: SKSpriteNode!
     
     var moving = false
     var navcircleTouch: UITouch? = nil
     var lastTouchPosition: CGPoint? = nil
     let gameWidth = CGFloat(850)
     let gameHeight = CGFloat(1334)
+    var frameCount = 0
     
     override func didMove(to view: SKView) {
         isUserInteractionEnabled = true
@@ -24,6 +26,8 @@ class GameScene: SKScene {
         navcircle = player.childNode(withName: "Navcircle") as! SKSpriteNode
         backgroundImage1 = background.childNode(withName: "Background1") as! SKSpriteNode
         backgroundImage2 = background.childNode(withName: "Background2") as! SKSpriteNode
+        let wave1 = SKScene(fileNamed: "Wave1")
+        enemyWaveTemplate = wave1!.childNode(withName: "Overlay") as! SKSpriteNode
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -65,6 +69,12 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if (frameCount % (60 * 10) == 0) {
+            let tempNode = enemyWaveTemplate.copy() as! SKSpriteNode
+            let moveDownwardsAction = SKAction.move(by: CGVector(dx: 0, dy: -100), duration: 1)
+            tempNode.run(SKAction.repeatForever(moveDownwardsAction))
+            foreground.addChild(tempNode)
+        }
         backgroundImage1.position.y -= 3
         backgroundImage2.position.y -= 3
         if (backgroundImage1.position.y < gameHeight * -1) {
@@ -73,5 +83,6 @@ class GameScene: SKScene {
         if (backgroundImage2.position.y < gameHeight * -1) {
             backgroundImage2.position.y = backgroundImage1.position.y + gameHeight
         }
+        frameCount += 1
     }
 }
