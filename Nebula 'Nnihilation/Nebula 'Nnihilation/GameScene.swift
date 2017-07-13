@@ -16,7 +16,6 @@ class GameScene: SKScene {
     var lastTouchPosition: CGPoint? = nil
     let gameWidth = CGFloat(850)
     let gameHeight = CGFloat(1334)
-    let waveSpawnInterval = 10 //seconds
     var frameCount = 0
     
     override func didMove(to view: SKView) {
@@ -70,10 +69,12 @@ class GameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        let waveSpawnInterval = 10 //seconds
         if (frameCount % (60 * waveSpawnInterval) == 0) {
             let tempNode = enemyWaveTemplate.copy() as! SKSpriteNode
             let moveDownwardsAction = SKAction.move(by: CGVector(dx: 0, dy: gameHeight * -2), duration: 20)
-            tempNode.run(SKAction.sequence([moveDownwardsAction, SKAction.removeFromParent()]))
+            let moveThenDelete = SKAction.sequence([moveDownwardsAction, SKAction.removeFromParent()])
+            tempNode.run(moveThenDelete)
             foreground.addChild(tempNode)
         }
         backgroundImage1.position.y -= 3
