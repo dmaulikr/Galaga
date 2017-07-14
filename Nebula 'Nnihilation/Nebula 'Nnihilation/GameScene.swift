@@ -1,7 +1,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var foreground: SKNode!
     var background: SKNode!
@@ -28,6 +28,7 @@ class GameScene: SKScene {
         backgroundImage2 = background.childNode(withName: "Background2") as! SKSpriteNode
         let wave1 = SKScene(fileNamed: "Wave1")
         enemyWaveTemplate = wave1!.childNode(withName: "Overlay") as! SKSpriteNode
+        physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -86,5 +87,21 @@ class GameScene: SKScene {
             backgroundImage2.position.y = backgroundImage1.position.y + gameHeight
         }
         frameCount += 1
+    }
+    func didBegin(_ contact: SKPhysicsContact) {
+        let body1 = contact.bodyA.node!
+        let body2 = contact.bodyB.node!
+        if (body1.name == "Player" && body2.name == "Enemy"
+            || body2.name == "Player" && body1.name == "Enemy") {
+            restart()
+        }
+    }
+    func restart() {
+        player.position.x = 0
+        player.position.y = -300
+        foreground.removeAllChildren()
+        foreground.addChild(player)
+        navcircleTouch = nil
+        moving = false
     }
 }
