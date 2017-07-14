@@ -14,7 +14,7 @@ protocol Weapon {
     var force: Double { get }
     var fireRate: Int { get }
     var filename: String { get }
-    var name: String { get }
+    var bulletName: String { get }
     var categoryMask: Int { get }
     var contactMask: Int { get }
     
