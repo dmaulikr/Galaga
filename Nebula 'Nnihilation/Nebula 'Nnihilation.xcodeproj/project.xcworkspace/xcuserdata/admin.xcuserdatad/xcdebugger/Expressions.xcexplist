@@ -3,6 +3,31 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "GameScene.didBegin(SKPhysicsContact) -&gt; ():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "body2.name">
+            </PersistentString>
+            <PersistentString
+               value = "body1.name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.update(Double) -&gt; ():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "playerChild is Weapon">
+            </PersistentString>
+            <PersistentString
+               value = "playerChild.name">
+            </PersistentString>
+            <PersistentString
+               value = "playerChild">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GameScene.touchesBegan(Set&lt;UITouch&gt;, with : UIEvent?) -&gt; ():GameScene.swift">
          <PersistentStrings>
             <PersistentString

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841EE1C71F1A860E008C6F1B /* PlayerWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EE1C61F1A860E008C6F1B /* PlayerWeapon.swift */; };
 		84218F661F0E78B200CD36DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F651F0E78B200CD36DB /* AppDelegate.swift */; };
 		84218F681F0E78B200CD36DB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84218F671F0E78B200CD36DB /* GameScene.sks */; };
 		84218F6C1F0E78B200CD36DB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F6B1F0E78B200CD36DB /* GameScene.swift */; };
@@ -16,11 +17,9 @@
 		84218F761F0E78B200CD36DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84218F741F0E78B200CD36DB /* LaunchScreen.storyboard */; };
 		84218F811F0E78B300CD36DB /* Nebula__NnihilationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F801F0E78B300CD36DB /* Nebula__NnihilationTests.swift */; };
 		84218F8C1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */; };
-		84897FE41F166558001B67C5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE31F166558001B67C5 /* Enemy.swift */; };
-		84897FE61F166BE4001B67C5 /* EnemyType1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FE51F166BE4001B67C5 /* EnemyType1.swift */; };
 		84897FEB1F1682FD001B67C5 /* Wave1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84897FEA1F1682FD001B67C5 /* Wave1.sks */; };
 		84897FED1F1966CA001B67C5 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FEC1F1966CA001B67C5 /* Weapon.swift */; };
-		84897FF01F196AB6001B67C5 /* PlayerWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FEF1F196AB6001B67C5 /* PlayerWeapon.swift */; };
+		84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AE006B1F1A82F400550E79 /* PlayerBullet.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		841EE1C61F1A860E008C6F1B /* PlayerWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapon.swift; sourceTree = "<group>"; };
 		84218F621F0E78B200CD36DB /* Nebula 'Nnihilation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nebula 'Nnihilation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84218F651F0E78B200CD36DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84218F671F0E78B200CD36DB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -56,11 +56,9 @@
 		84218F871F0E78B300CD36DB /* Nebula 'NnihilationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Nebula 'NnihilationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84218F8B1F0E78B300CD36DB /* Nebula__NnihilationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nebula__NnihilationUITests.swift; sourceTree = "<group>"; };
 		84218F8D1F0E78B300CD36DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84897FE31F166558001B67C5 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
-		84897FE51F166BE4001B67C5 /* EnemyType1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyType1.swift; sourceTree = "<group>"; };
 		84897FEA1F1682FD001B67C5 /* Wave1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Wave1.sks; sourceTree = "<group>"; };
 		84897FEC1F1966CA001B67C5 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
-		84897FEF1F196AB6001B67C5 /* PlayerWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapon.swift; sourceTree = "<group>"; };
+		84AE006B1F1A82F400550E79 /* PlayerBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerBullet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841EE1C51F1A85EF008C6F1B /* Weapons */ = {
+			isa = PBXGroup;
+			children = (
+				841EE1C61F1A860E008C6F1B /* PlayerWeapon.swift */,
+			);
+			name = Weapons;
+			sourceTree = "<group>";
+		};
 		84218F591F0E78B200CD36DB = {
 			isa = PBXGroup;
 			children = (
@@ -111,14 +117,13 @@
 		84218F641F0E78B200CD36DB /* Nebula 'Nnihilation */ = {
 			isa = PBXGroup;
 			children = (
+				841EE1C51F1A85EF008C6F1B /* Weapons */,
 				84218F991F0E7AB800CD36DB /* System */,
 				84218F671F0E78B200CD36DB /* GameScene.sks */,
 				84218F6B1F0E78B200CD36DB /* GameScene.swift */,
+				84AE006B1F1A82F400550E79 /* PlayerBullet.sks */,
 				84218F721F0E78B200CD36DB /* Assets.xcassets */,
-				84897FE31F166558001B67C5 /* Enemy.swift */,
 				84897FEC1F1966CA001B67C5 /* Weapon.swift */,
-				84897FEE1F196A99001B67C5 /* Weapons */,
-				84897FE81F166C69001B67C5 /* Enemies */,
 				84897FE91F1682DC001B67C5 /* Waves */,
 			);
 			path = "Nebula 'Nnihilation";
@@ -154,28 +159,12 @@
 			name = System;
 			sourceTree = "<group>";
 		};
-		84897FE81F166C69001B67C5 /* Enemies */ = {
-			isa = PBXGroup;
-			children = (
-				84897FE51F166BE4001B67C5 /* EnemyType1.swift */,
-			);
-			name = Enemies;
-			sourceTree = "<group>";
-		};
 		84897FE91F1682DC001B67C5 /* Waves */ = {
 			isa = PBXGroup;
 			children = (
 				84897FEA1F1682FD001B67C5 /* Wave1.sks */,
 			);
 			name = Waves;
-			sourceTree = "<group>";
-		};
-		84897FEE1F196A99001B67C5 /* Weapons */ = {
-			isa = PBXGroup;
-			children = (
-				84897FEF1F196AB6001B67C5 /* PlayerWeapon.swift */,
-			);
-			name = Weapons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */,
 				84897FEB1F1682FD001B67C5 /* Wave1.sks in Resources */,
 				84218F711F0E78B200CD36DB /* Main.storyboard in Resources */,
 				84218F681F0E78B200CD36DB /* GameScene.sks in Resources */,
@@ -315,13 +305,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84897FE61F166BE4001B67C5 /* EnemyType1.swift in Sources */,
-				84897FE41F166558001B67C5 /* Enemy.swift in Sources */,
 				84218F6C1F0E78B200CD36DB /* GameScene.swift in Sources */,
 				84218F6E1F0E78B200CD36DB /* GameViewController.swift in Sources */,
 				84218F661F0E78B200CD36DB /* AppDelegate.swift in Sources */,
 				84897FED1F1966CA001B67C5 /* Weapon.swift in Sources */,
-				84897FF01F196AB6001B67C5 /* PlayerWeapon.swift in Sources */,
+				841EE1C71F1A860E008C6F1B /* PlayerWeapon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

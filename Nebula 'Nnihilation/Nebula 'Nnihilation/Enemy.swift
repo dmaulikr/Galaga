@@ -10,7 +10,7 @@ import Foundation
 
 protocol Enemy {
     
-    var health: Int { get }
+    var health: Int { get set }
     
     var scoreValue: Int { get }
     
