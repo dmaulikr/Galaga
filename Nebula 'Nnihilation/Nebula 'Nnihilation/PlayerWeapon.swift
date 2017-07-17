@@ -11,7 +11,7 @@ import SpriteKit
 
 class PlayerWeapon: Weapon {
     
-    var damage = 2
+    var damage = 3
     var force = 0.3
     var fireRate = 6
     var filename = "PlayerBullet"

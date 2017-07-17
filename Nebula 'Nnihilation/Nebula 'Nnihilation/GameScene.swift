@@ -11,6 +11,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backgroundImage2: SKSpriteNode!
     var enemyWaveTemplate: SKSpriteNode!
     var bulletLayer: SKNode!
+    var scoreLabel: SKLabelNode!
     
     var moving = false
     var navcircleTouch: UITouch? = nil
@@ -20,6 +21,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var frameCount = 0
     var playerWeapon1: PlayerWeapon = PlayerWeapon()
     var playerWeapon2: PlayerWeapon = PlayerWeapon()
+    var score: Int {
+        get {
+            return Int(scoreLabel.text!)!
+        }
+        set (newValue) {
+            scoreLabel.text = String(newValue)
+        }
+    }
     
     override func didMove(to view: SKView) {
         isUserInteractionEnabled = true
@@ -32,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let wave1 = SKScene(fileNamed: "Wave1")
         enemyWaveTemplate = wave1!.childNode(withName: "Overlay") as! SKSpriteNode
         bulletLayer = foreground.childNode(withName: "Bullets")!
+        scoreLabel = childNode(withName: "Score") as! SKLabelNode
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
         playerWeapon2.position = CGPoint(x: -35, y: 5)
@@ -131,6 +141,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         body2.removeFromParent()
                     }
                     body1.removeFromParent()
+                    score += playerWeapon1.damage
                 } else if (body2.name == "PlayerBullet" && body1.name == "Enemy") {
                     var health = body1.userData?.value(forKey: "health") as! Int
                     health -= playerWeapon1.damage
@@ -139,6 +150,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         body1.removeFromParent()
                     }
                     body2.removeFromParent()
+                    score += playerWeapon1.damage
                 }
             }
         }
@@ -150,6 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bulletLayer.removeAllChildren()
         foreground.addChild(player)
         foreground.addChild(bulletLayer)
+        score = 0
         navcircleTouch = nil
         moving = false
     }

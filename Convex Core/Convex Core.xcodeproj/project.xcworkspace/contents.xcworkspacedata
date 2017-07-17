@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/admin/Documents/Galaga/Galaga 2017/Convex Core.xcodeproj">
+      location = "absolute:/Users/admin/Documents/Galaga/Galaga 2017/Convex Core.xcodeproj">
    </FileRef>
 </Workspace>
