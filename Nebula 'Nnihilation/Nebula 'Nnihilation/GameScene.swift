@@ -85,6 +85,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     override func update(_ currentTime: TimeInterval) {
+        //WEAPONS
+        //Create placeholder enemy weapon so we can access its properties
+        let enemyWeapon1 = EnemyWeapon1()
+        //Find children of foreground's overlay node named "Enemy"
+        for child in foreground.children {
+            if (child.name == "Overlay") {
+                for enemy in child.children {
+                    if (enemy.name == "Enemy" && frameCount % enemyWeapon1.fireRate == 0) {
+                        let bullet: SKEmitterNode = SKEmitterNode(fileNamed: enemyWeapon1.filename)!
+                        let enemyPosition = CGPoint(x: enemy.position.x + child.position.x,
+                                                    y: enemy.position.y + child.position.y)
+                        bullet.position = CGPoint(x: enemyPosition.x + enemyWeapon1.position.x,
+                                                  y: enemyPosition.y + enemyWeapon1.position.y)
+                        bullet.name = enemyWeapon1.bulletName
+                        bullet.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+                        bullet.physicsBody?.affectedByGravity = false
+                        bullet.physicsBody?.categoryBitMask = UInt32(enemyWeapon1.categoryMask)
+                        bullet.physicsBody?.contactTestBitMask = UInt32(enemyWeapon1.contactMask)
+                        bulletLayer.addChild(bullet)
+                        bullet.physicsBody?.applyImpulse(CGVector(dx: 0, dy: enemyWeapon1.force))
+
+                    }
+                }
+            }
+        }
+        
         // Called before each frame is rendered
         if (frameCount % playerWeapon1.fireRate == 0) {
             let bullet: SKEmitterNode = SKEmitterNode(fileNamed: playerWeapon1.filename)!
@@ -133,6 +159,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else if (body2.name == "PlayerBullet" && body1.name == "Barrier") {
                     body2.removeFromParent()
                 }
+                //WEAPONS
+                
+                if (body1.name == "EnemyBullet" && body2.name == "Barrier") {
+                    body1.removeFromParent()
+                } else if (body2.name == "EnemyBullet" && body1.name == "Barrier") {
+                    body2.removeFromParent()
+                }
+                if (body1.name == "Player" && body2.name == "EnemyBullet"
+                    || body2.name == "Player" && body1.name == "EnemyBullet") {
+                    restart()
+                }
+                
+                //END WEAPONS
                 if (body1.name == "PlayerBullet" && body2.name == "Enemy") {
                     var health = body2.userData?.value(forKey: "health") as! Int
                     health -= playerWeapon1.damage
