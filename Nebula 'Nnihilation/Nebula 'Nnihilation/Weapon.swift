@@ -18,5 +18,6 @@ protocol Weapon {
     var bulletName: String { get }
     var categoryMask: Int { get }
     var contactMask: Int { get }
+    var position: CGPoint { get }
     
 }

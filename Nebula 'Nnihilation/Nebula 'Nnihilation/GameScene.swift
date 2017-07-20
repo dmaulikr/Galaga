@@ -93,19 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if (child.name == "Overlay") {
                 for enemy in child.children {
                     if (enemy.name == "Enemy" && frameCount % enemyWeapon1.fireRate == 0) {
-                        let bullet: SKEmitterNode = SKEmitterNode(fileNamed: enemyWeapon1.filename)!
-                        let enemyPosition = CGPoint(x: enemy.position.x + child.position.x,
-                                                    y: enemy.position.y + child.position.y)
-                        bullet.position = CGPoint(x: enemyPosition.x + enemyWeapon1.position.x,
-                                                  y: enemyPosition.y + enemyWeapon1.position.y)
-                        bullet.name = enemyWeapon1.bulletName
-                        bullet.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-                        bullet.physicsBody?.affectedByGravity = false
-                        bullet.physicsBody?.categoryBitMask = UInt32(enemyWeapon1.categoryMask)
-                        bullet.physicsBody?.contactTestBitMask = UInt32(enemyWeapon1.contactMask)
-                        bulletLayer.addChild(bullet)
-                        bullet.physicsBody?.applyImpulse(CGVector(dx: 0, dy: enemyWeapon1.force))
-
+                        enemyWeapon1.position = child.position
+                        fireWeapon(weapon: enemyWeapon1, senderPosition: enemy.position)
                     }
                 }
             }
@@ -113,21 +102,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Called before each frame is rendered
         if (frameCount % playerWeapon1.fireRate == 0) {
-            let bullet: SKEmitterNode = SKEmitterNode(fileNamed: playerWeapon1.filename)!
-            bullet.position = CGPoint(x: player.position.x + playerWeapon1.position.x,
-                                      y: player.position.y + playerWeapon1.position.y)
-            bullet.name = playerWeapon1.bulletName
-            bullet.physicsBody = SKPhysicsBody(circleOfRadius: 1)
-            bullet.physicsBody?.affectedByGravity = false
-            bullet.physicsBody?.categoryBitMask = UInt32(playerWeapon1.categoryMask)
-            bullet.physicsBody?.contactTestBitMask = UInt32(playerWeapon1.contactMask)
-            let bullet2 = bullet.copy() as! SKEmitterNode
-            bullet2.position = CGPoint(x: player.position.x + playerWeapon2.position.x,
-                                       y: player.position.y + playerWeapon2.position.y)
-            bulletLayer.addChild(bullet)
-            bulletLayer.addChild(bullet2)
-            bullet.physicsBody?.applyImpulse(CGVector(dx: 0, dy: playerWeapon1.force))
-            bullet2.physicsBody?.applyImpulse(CGVector(dx: 0, dy: playerWeapon1.force))
+            fireWeapon(weapon: playerWeapon1, senderPosition: player.position)
+            fireWeapon(weapon: playerWeapon2, senderPosition: player.position)
         }
         let waveSpawnInterval = 10 //seconds
         if (frameCount % (60 * waveSpawnInterval) == 0) {
@@ -146,6 +122,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             backgroundImage2.position.y = backgroundImage1.position.y + gameHeight
         }
         frameCount += 1
+    }
+    func fireWeapon(weapon: Weapon, senderPosition: CGPoint) {
+        let bullet: SKEmitterNode = SKEmitterNode(fileNamed: weapon.filename)!
+        bullet.position = CGPoint(x: weapon.position.x + senderPosition.x,
+                                  y: weapon.position.y + senderPosition.y)
+        bullet.name = weapon.bulletName
+        bullet.physicsBody = SKPhysicsBody(circleOfRadius: 1)
+        bullet.physicsBody?.affectedByGravity = false
+        bullet.physicsBody?.categoryBitMask = UInt32(weapon.categoryMask)
+        bullet.physicsBody?.contactTestBitMask = UInt32(weapon.contactMask)
+        bulletLayer.addChild(bullet)
+        bullet.physicsBody?.applyImpulse(CGVector(dx: 0, dy: weapon.force))
     }
     func didBegin(_ contact: SKPhysicsContact) {
         if let body1 = contact.bodyA.node {
