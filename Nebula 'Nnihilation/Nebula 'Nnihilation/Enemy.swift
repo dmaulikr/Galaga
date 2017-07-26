@@ -2,16 +2,23 @@
 //  Enemy.swift
 //  Nebula 'Nnihilation
 //
-//  Created by Jack Hamilton on 7/12/17.
+//  Created by Jack Hamilton on 7/26/17.
 //  Copyright © 2017 App Camp. All rights reserved.
 //
 
 import Foundation
+import SpriteKit
 
-protocol Enemy {
+class Enemy: SKNode {
+    var health: Int
+    var speed: (Int, Int) = (0, 0)
+
+    required init?(coder aDecoder: NSCoder) {
+        health = 0
+        super.init(coder: aDecoder)
+    }
     
-    var health: Int { get set }
-    
-    var scoreValue: Int { get }
-    
+    func update(frameCount: Int) {
+        
+    }
 }

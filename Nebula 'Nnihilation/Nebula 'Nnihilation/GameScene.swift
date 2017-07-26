@@ -9,7 +9,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var navcircle: SKSpriteNode!
     var backgroundImage1: SKSpriteNode!
     var backgroundImage2: SKSpriteNode!
-    var enemyWaveTemplate: SKSpriteNode!
     var bulletLayer: SKNode!
     var scoreLabel: SKLabelNode!
     
@@ -38,8 +37,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         navcircle = player.childNode(withName: "Navcircle") as! SKSpriteNode
         backgroundImage1 = background.childNode(withName: "Background1") as! SKSpriteNode
         backgroundImage2 = background.childNode(withName: "Background2") as! SKSpriteNode
-        let wave1 = SKScene(fileNamed: "Wave1")
-        enemyWaveTemplate = wave1!.childNode(withName: "Overlay") as! SKSpriteNode
         bulletLayer = foreground.childNode(withName: "Bullets")!
         scoreLabel = childNode(withName: "Score") as! SKLabelNode
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
@@ -107,14 +104,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (frameCount % playerWeapon1.fireRate == 0) {
             fireWeapon(weapon: playerWeapon1, senderPosition: player.position)
             fireWeapon(weapon: playerWeapon2, senderPosition: player.position)
-        }
-        let waveSpawnInterval = 10 //seconds
-        if (frameCount % (60 * waveSpawnInterval) == 0) {
-            let tempNode = enemyWaveTemplate.copy() as! SKSpriteNode
-            let moveDownwardsAction = SKAction.move(by: CGVector(dx: 0, dy: gameHeight * -2), duration: 20)
-            let moveThenDelete = SKAction.sequence([moveDownwardsAction, SKAction.removeFromParent()])
-            tempNode.run(moveThenDelete)
-            foreground.addChild(tempNode)
         }
         backgroundImage1.position.y -= 3
         backgroundImage2.position.y -= 3
