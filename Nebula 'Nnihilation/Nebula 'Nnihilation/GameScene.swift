@@ -54,6 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 lastTouchPosition = touchPosition
                 navcircleTouch = touch;
                 moving = true;
+                navcircle.run(SKAction.scale(to: 1.8, duration: 0.1))
             }
         }
     }
@@ -73,6 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if (moving && touch.isEqual(navcircleTouch)) {
                 navcircleTouch = nil
                 moving = false
+                navcircle.run(SKAction.scale(to: 1.5, duration: 0.1))
             }
         }
     }
@@ -81,6 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if (moving && touch.isEqual(navcircleTouch)) {
                 navcircleTouch = nil
                 moving = false
+                navcircle.run(SKAction.scale(to: 1.5, duration: 0.1))
             }
         }
     }
@@ -138,8 +141,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if let body1 = contact.bodyA.node {
             if let body2 = contact.bodyB.node {
-                if (body1.name == "Player" && body2.name == "Enemy"
-                    || body2.name == "Player" && body1.name == "Enemy") {
+                if (body1.name == "PlayerHitbox" && body2.name == "Enemy"
+                    || body2.name == "PlayerHitbox" && body1.name == "Enemy") {
                     restart()
                 }
                 if (body1.name == "PlayerBullet" && body2.name == "Barrier") {
@@ -154,8 +157,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else if (body2.name == "EnemyBullet" && body1.name == "Barrier") {
                     body2.removeFromParent()
                 }
-                if (body1.name == "Player" && body2.name == "EnemyBullet"
-                    || body2.name == "Player" && body1.name == "EnemyBullet") {
+                if (body1.name == "PlayerHitbox" && body2.name == "EnemyBullet"
+                    || body2.name == "PlayerHitbox" && body1.name == "EnemyBullet") {
                     restart()
                 }
                 
@@ -192,5 +195,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         navcircleTouch = nil
         moving = false
+        navcircle.run(SKAction.scale(to: 1.5, duration: 0.1))
     }
 }
