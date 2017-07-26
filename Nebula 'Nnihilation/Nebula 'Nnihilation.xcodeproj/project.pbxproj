@@ -23,6 +23,7 @@
 		842DEA0B1F28CDAD00AFAC7F /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA0A1F28CDAD00AFAC7F /* Enemy.swift */; };
 		842DEA111F28D84500AFAC7F /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA101F28D84500AFAC7F /* Velocity.swift */; };
 		842DEA181F28F85E00AFAC7F /* BasicWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA171F28F85E00AFAC7F /* BasicWave.swift */; };
+		842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA1A1F29255100AFAC7F /* WaveSequence.swift */; };
 		84897FED1F1966CA001B67C5 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84897FEC1F1966CA001B67C5 /* Weapon.swift */; };
 		84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AE006B1F1A82F400550E79 /* PlayerBullet.sks */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		842DEA0A1F28CDAD00AFAC7F /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		842DEA101F28D84500AFAC7F /* Velocity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		842DEA171F28F85E00AFAC7F /* BasicWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicWave.swift; sourceTree = "<group>"; };
+		842DEA1A1F29255100AFAC7F /* WaveSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveSequence.swift; sourceTree = "<group>"; };
 		84897FEC1F1966CA001B67C5 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		84AE006B1F1A82F400550E79 /* PlayerBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerBullet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +177,7 @@
 				84897FEC1F1966CA001B67C5 /* Weapon.swift */,
 				842DEA0A1F28CDAD00AFAC7F /* Enemy.swift */,
 				842DEA081F28CCC700AFAC7F /* Wave.swift */,
+				842DEA1A1F29255100AFAC7F /* WaveSequence.swift */,
 				842DEA101F28D84500AFAC7F /* Velocity.swift */,
 			);
 			name = Templates;
@@ -358,6 +361,7 @@
 				84897FED1F1966CA001B67C5 /* Weapon.swift in Sources */,
 				842DEA0B1F28CDAD00AFAC7F /* Enemy.swift in Sources */,
 				842DEA091F28CCC700AFAC7F /* Wave.swift in Sources */,
+				842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */,
 				841E772F1F1FF10600F7CDD7 /* EnemyWeapon1.swift in Sources */,
 				842DEA181F28F85E00AFAC7F /* BasicWave.swift in Sources */,
 				841EE1C71F1A860E008C6F1B /* PlayerWeapon.swift in Sources */,

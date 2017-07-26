@@ -14,6 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backgroundImage2: SKSpriteNode!
     var bulletLayer: SKNode!
     var scoreLabel: SKLabelNode!
+    //The waveSequence to step through in update. Set in didMove.
+    var currentWaveSequence: WaveSequence?
     
     var moving = false
     var navcircleTouch: UITouch? = nil
@@ -44,7 +46,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
         playerWeapon2.position = CGPoint(x: -35, y: 5)
-        activeWaves.append(BasicWave(startingFrameCount: 0, parent: foreground))
+        
+        currentWaveSequence = WaveSequence(waves: [
+            TimedWave(wave: BasicWave(startingFrameCount: 0, parent: foreground), duration: 60),
+            TimedWave(wave: BasicWave(startingFrameCount: 60, parent: foreground), duration: 60),
+            TimedWave(wave: BasicWave(startingFrameCount: 120, parent: foreground), duration: 60)
+            ], startingFrame: 0)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -118,6 +125,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         frameCount += 1
         
+        //Tick the currently active waveSequence
+        if (currentWaveSequence != nil) {
+            for wave in (currentWaveSequence?.step(frame: frameCount))! {
+                activeWaves.append(wave)
+            }
+            
+            //Shouldn't happen in final version, just until I set it so that the game finishes when the wave sequence
+            //completes. At some point, the contents of this method should be just ... displayScoreScreen() or startStage2().
+            if (currentWaveSequence?.isComplete())! {
+                currentWaveSequence = WaveSequence(waves: [
+                    TimedWave(wave: BasicWave(startingFrameCount: 0, parent: foreground), duration: 60),
+                    TimedWave(wave: BasicWave(startingFrameCount: 60, parent: foreground), duration: 60),
+                    TimedWave(wave: BasicWave(startingFrameCount: 120, parent: foreground), duration: 60)
+                    ], startingFrame: 0)
+            }
+        }
+        
+        //Kill waves with no enemies in them, update the others
         if (!activeWaves.isEmpty) {
             for var i in 0...(activeWaves.count - 1) {
                 let wave = activeWaves[i]
@@ -168,11 +193,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 //END WEAPONS
                 if (body1.name == "PlayerBullet" && body2.name == "Enemy") {
-                    var health = body2.userData?.value(forKey: "health") as! Int
-                    health -= playerWeapon1.damage
-                    body2.userData?.setValue(health, forKey: "health")
-                    if (health <= 0) {
-                        body2.removeFromParent()
+                    if let enemy = body2 as? Enemy {
+                        enemy.collision(withBody: body2)
                     }
                     body1.removeFromParent()
                     score += playerWeapon1.damage
