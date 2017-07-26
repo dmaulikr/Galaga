@@ -3,6 +3,9 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    static let gameWidth = CGFloat(850)
+    static let gameHeight = CGFloat(1334)
+    
     var foreground: SKNode!
     var background: SKNode!
     var player: SKSpriteNode!
@@ -15,11 +18,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var moving = false
     var navcircleTouch: UITouch? = nil
     var lastTouchPosition: CGPoint? = nil
-    let gameWidth = CGFloat(850)
-    let gameHeight = CGFloat(1334)
     var frameCount = 0
     var playerWeapon1: PlayerWeapon = PlayerWeapon()
     var playerWeapon2: PlayerWeapon = PlayerWeapon()
+    var activeWaves: [Wave] = []
     var score: Int {
         get {
             return Int(scoreLabel.text!)!
@@ -42,6 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
         playerWeapon2.position = CGPoint(x: -35, y: 5)
+        activeWaves.append(BasicWave(startingFrameCount: 0, parent: foreground))
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -107,13 +110,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         backgroundImage1.position.y -= 3
         backgroundImage2.position.y -= 3
-        if (backgroundImage1.position.y < gameHeight * -1) {
-            backgroundImage1.position.y = backgroundImage2.position.y + gameHeight
+        if (backgroundImage1.position.y < GameScene.gameHeight * -1) {
+            backgroundImage1.position.y = backgroundImage2.position.y + GameScene.gameHeight
         }
-        if (backgroundImage2.position.y < gameHeight * -1) {
-            backgroundImage2.position.y = backgroundImage1.position.y + gameHeight
+        if (backgroundImage2.position.y < GameScene.gameHeight * -1) {
+            backgroundImage2.position.y = backgroundImage1.position.y + GameScene.gameHeight
         }
         frameCount += 1
+        
+        if (!activeWaves.isEmpty) {
+            for var i in 0...(activeWaves.count - 1) {
+                let wave = activeWaves[i]
+                if (wave.enemies.count == 0) {
+                    activeWaves.remove(at: i)
+                    i -= 1
+                } else {
+                    activeWaves[i].update(frameCount: frameCount)
+                }
+            }
+        }
     }
     func fireWeapon(weapon: Weapon, senderPosition: CGPoint) {
         let bullet: SKEmitterNode = SKEmitterNode(fileNamed: weapon.filename)!
@@ -162,11 +177,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     body1.removeFromParent()
                     score += playerWeapon1.damage
                 } else if (body2.name == "PlayerBullet" && body1.name == "Enemy") {
-                    var health = body1.userData?.value(forKey: "health") as! Int
-                    health -= playerWeapon1.damage
-                    body1.userData?.setValue(health, forKey: "health")
-                    if (health <= 0) {
-                        body1.removeFromParent()
+                    if let enemy = body1 as? Enemy {
+                        enemy.collision(withBody: body2)
                     }
                     body2.removeFromParent()
                     score += playerWeapon1.damage
