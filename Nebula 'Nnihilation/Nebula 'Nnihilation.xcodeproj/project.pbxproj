@@ -170,9 +170,9 @@
 		842DEA0E1F28CDD300AFAC7F /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				84897FEC1F1966CA001B67C5 /* Weapon.swift */,
 				842DEA0A1F28CDAD00AFAC7F /* Enemy.swift */,
 				842DEA081F28CCC700AFAC7F /* Wave.swift */,
-				84897FEC1F1966CA001B67C5 /* Weapon.swift */,
 				842DEA101F28D84500AFAC7F /* Velocity.swift */,
 			);
 			name = Templates;

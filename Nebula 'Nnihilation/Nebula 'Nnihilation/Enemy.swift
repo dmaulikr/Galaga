@@ -11,10 +11,11 @@ import SpriteKit
 
 class Enemy: SKNode {
     var health: Int
-    var speed: (Int, Int) = (0, 0)
+    var velocity: Velocity
 
     required init?(coder aDecoder: NSCoder) {
         health = 0
+        velocity = Velocity(magnitude: 0, angle: 0)
         super.init(coder: aDecoder)
     }
     

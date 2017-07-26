@@ -22,8 +22,8 @@ class Velocity {
     }
     
     func toVector() -> CGVector {
-        return CGVector (x: magnitude * cos((angle / 180) * .pi),
-                         y: magnitude * sin((angle / 180) * .pi))
+        return CGVector (dx: magnitude * cos((angle / 180) * .pi),
+                         dy: magnitude * sin((angle / 180) * .pi))
     }
     
 }
