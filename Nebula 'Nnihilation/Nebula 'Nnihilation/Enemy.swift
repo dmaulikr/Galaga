@@ -23,6 +23,16 @@ class Enemy: SKSpriteNode {
     var contactMask: Int
     var categoryMask: Int
     
+    //Whether the enemy has appeared in the scene yet
+    var enteredScene: Bool = false
+    
+    let zPos = 3
+    
+    //The wave of which it is a member. Set by said wave.
+    var wave: Wave?
+    //The index it is at in the wave's array of enemies.
+    var waveIndex: Int?
+    
     //Override in subclasses
     var imageFilename: String {
         return "Enemy1"
@@ -47,6 +57,7 @@ class Enemy: SKSpriteNode {
         size = CGSize(width: texture!.size().width * scale, height: texture!.size().height * scale)
         position = spawnLocation
         name = nodeName
+        zPosition = CGFloat(self.zPos)
         initPhysics()
     }
     convenience init(spawnX: Int, spawnY: Int, spawnFrame: Int) {
@@ -83,12 +94,30 @@ class Enemy: SKSpriteNode {
         physicsBody?.categoryBitMask = UInt32(categoryMask)
     }
     
+    let screen = CGRect(x: GameScene.gameWidth / -2, y: GameScene.gameHeight / -2,
+                        width: GameScene.gameWidth - 100, height: GameScene.gameHeight - 100)
     func update(frameCount: Int) {
+        if (!enteredScene && screen.contains(position)) {
+            enteredScene = true
+        }
         position.x = position.x + velocity.vector.dx
         position.y = position.y + velocity.vector.dy
     }
     
     func collision(withBody body: SKNode) {
         
+    }
+    
+    func destroy() {
+        if let wave = self.wave {
+            wave.enemies.remove(at: waveIndex!)
+            //Decrement the index of those enemies higher than it
+            for enemy in wave.enemies {
+                if (enemy.waveIndex! >= waveIndex!) {
+                    enemy.waveIndex! -= 1
+                }
+            }
+        }
+        removeFromParent()
     }
 }

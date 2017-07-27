@@ -48,9 +48,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerWeapon2.position = CGPoint(x: -35, y: 5)
         
         currentWaveSequence = WaveSequence(waves: [
-            TimedWave(wave: BasicWave(startingFrameCount: 0, parent: foreground), duration: 60),
-            TimedWave(wave: BasicWave(startingFrameCount: 60, parent: foreground), duration: 60),
-            TimedWave(wave: BasicWave(startingFrameCount: 120, parent: foreground), duration: 60)
+            TimedWave(wave: BasicWave(parent: foreground), duration: 60),
+            TimedWave(wave: BasicWave(parent: foreground), duration: 60),
+            TimedWave(wave: BasicWave(parent: foreground), duration: 60)
             ], startingFrame: 0)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -95,21 +95,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     override func update(_ currentTime: TimeInterval) {
-        //WEAPONS
-        //Create placeholder enemy weapon so we can access its properties
-        let enemyWeapon1 = EnemyWeapon1()
-        //Find children of foreground's overlay node named "Enemy"
-        for child in foreground.children {
-            if (child.name == "Overlay") {
-                for enemy in child.children {
-                    if (enemy.name == "Enemy" && frameCount % enemyWeapon1.fireRate == 0) {
-                        enemyWeapon1.position = child.position
-                        fireWeapon(weapon: enemyWeapon1, senderPosition: enemy.position)
-                    }
-                }
-            }
-        }
-        
         // Called before each frame is rendered
         if (frameCount % playerWeapon1.fireRate == 0) {
             fireWeapon(weapon: playerWeapon1, senderPosition: player.position)
@@ -144,13 +129,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Kill waves with no enemies in them, update the others
         if (!activeWaves.isEmpty) {
-            for var i in 0...(activeWaves.count - 1) {
-                let wave = activeWaves[i]
-                if (wave.enemies.count == 0) {
-                    activeWaves.remove(at: i)
-                    i -= 1
-                } else {
-                    activeWaves[i].update(frameCount: frameCount)
+            var counter = activeWaves.count - 1
+            for var i in 0...counter {
+                if (activeWaves.count > i) {
+                    let wave = activeWaves[i]
+                    if (wave.enemies.count == 0) {
+                        activeWaves.remove(at: i)
+                        i -= 1
+                        counter -= 1
+                    } else {
+                        activeWaves[i].update(frameCount: frameCount)
+                    }
                 }
             }
         }
@@ -180,7 +169,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     body2.removeFromParent()
                 }
                 //WEAPONS
-                
                 if (body1.name == "EnemyBullet" && body2.name == "Barrier") {
                     body1.removeFromParent()
                 } else if (body2.name == "EnemyBullet" && body1.name == "Barrier") {
@@ -190,7 +178,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     || body2.name == "PlayerHitbox" && body1.name == "EnemyBullet") {
                     restart()
                 }
-                
                 //END WEAPONS
                 if (body1.name == "PlayerBullet" && body2.name == "Enemy") {
                     if let enemy = body2 as? Enemy {
@@ -204,6 +191,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                     body2.removeFromParent()
                     score += playerWeapon1.damage
+                }
+                if (body1.name == "Enemy" && body2.name == "Barrier") {
+                    if let enemy = body1 as? Enemy {
+                        if (enemy.enteredScene) {
+                            enemy.destroy()
+                        }
+                    }
+                } else if (body2.name == "Enemy" && body1.name == "Barrier") {
+                    if let enemy = body2 as? Enemy {
+                        if (enemy.enteredScene) {
+                            enemy.destroy()
+                        }
+                    }
                 }
             }
         }

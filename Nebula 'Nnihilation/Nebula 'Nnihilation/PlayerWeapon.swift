@@ -9,6 +9,19 @@
 import Foundation
 import SpriteKit
 
+protocol Weapon {
+    
+    var damage: Int { get }
+    var force: Double { get }
+    var fireRate: Int { get }
+    var filename: String { get }
+    var bulletName: String { get }
+    var categoryMask: Int { get }
+    var contactMask: Int { get }
+    var position: CGPoint { get }
+    
+}
+
 class PlayerWeapon: Weapon {
     
     var damage = 3

@@ -19,23 +19,29 @@ class Wave {
     let rightCenter = Int(GameScene.gameWidth * 0.7) - Int(GameScene.gameWidth / 2)
     let right = Int(GameScene.gameWidth * 0.9) - Int(GameScene.gameWidth / 2)
     
+    var startingFrameCount: Int
     var enemies: [Enemy]
     let parent: SKNode
+    
     
     required init(startingFrameCount: Int, parent: SKNode) {
         self.startingFrameCount = startingFrameCount
         enemies = []
         self.parent = parent
     }
+    convenience init(parent: SKNode) {
+        self.init(startingFrameCount: 0, parent: parent)
+    }
     
     func addEnemies(enemies: [Enemy]) {
-        for enemy in enemies {
+        for i in 0...(enemies.count - 1) {
+            let enemy = enemies[i]
+            enemy.wave = self
+            enemy.waveIndex = i
             parent.addChild(enemy)
             self.enemies.append(enemy)
         }
     }
-    
-    var startingFrameCount: Int
     
     func update(frameCount: Int) {
         let currentFrame = frameCount - startingFrameCount

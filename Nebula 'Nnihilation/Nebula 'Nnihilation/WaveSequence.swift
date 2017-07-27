@@ -17,9 +17,12 @@ class WaveSequence {
     var nextWave = 0
     //When to spawn it
     var framesToNextSpawn = 0
+    var totalSequenceFrames = 0
     
     init (waves: [TimedWave], startingFrame: Int) {
         for wave in waves {
+            wave.wave.startingFrameCount = totalSequenceFrames
+            totalSequenceFrames += wave.duration
             self.waves.append(TimedWave(wave: wave.wave, duration: wave.duration))
         }
         self.startingFrame = startingFrame
@@ -51,6 +54,8 @@ class WaveSequence {
     
     func addWaves(timedWaves: [TimedWave]) {
         for timedWave in timedWaves {
+            timedWave.wave.startingFrameCount = totalSequenceFrames
+            totalSequenceFrames += timedWave.duration
             waves.append(TimedWave(wave: timedWave.wave, duration: timedWave.duration))
         }
     }
