@@ -11,6 +11,10 @@ import SpriteKit
 
 class BasicEnemy1: Enemy {
     
+    override var imageFilename: String {
+        return "Enemy2"
+    }
+    
     var direction = false
     
     override init(spawnLocation: CGPoint, spawnFrame: Int) {
