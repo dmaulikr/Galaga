@@ -33,6 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var startedWaveSpawning = false
+    
     override func didMove(to view: SKView) {
         isUserInteractionEnabled = true
         foreground = childNode(withName: "Foreground")!
@@ -46,12 +48,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
         playerWeapon2.position = CGPoint(x: -35, y: 5)
-        
-        currentWaveSequence = WaveSequence(waves: [
-            TimedWave(wave: BasicWave(parent: foreground), duration: 60),
-            TimedWave(wave: BasicWave(parent: foreground), duration: 60),
-            TimedWave(wave: BasicWave(parent: foreground), duration: 60)
-            ], startingFrame: 0)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -110,22 +106,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         frameCount += 1
         
+        
+        //WAVE SPAWNING CODE
         //Tick the currently active waveSequence
         if (currentWaveSequence != nil) {
             for wave in (currentWaveSequence?.step(frame: frameCount))! {
                 activeWaves.append(wave)
             }
-            
-            //Shouldn't happen in final version, just until I set it so that the game finishes when the wave sequence
-            //completes. At some point, the contents of this method should be just ... displayScoreScreen() or startStage2().
-            if (currentWaveSequence?.isComplete())! {
-                currentWaveSequence = WaveSequence(waves: [
-                    TimedWave(wave: BasicWave(startingFrameCount: 0, parent: foreground), duration: 60),
-                    TimedWave(wave: BasicWave(startingFrameCount: 60, parent: foreground), duration: 60),
-                    TimedWave(wave: BasicWave(startingFrameCount: 120, parent: foreground), duration: 60)
-                    ], startingFrame: 0)
-            }
         }
+        //Shouldn't happen in final version, just until I set it so that the game finishes when the wave sequence
+        //completes. At some point, the contents of this method should be just ... displayScoreScreen() or startStage2().
+        if (!startedWaveSpawning || (currentWaveSequence!.isComplete())) {
+            currentWaveSequence = WaveSequence(waves: [
+                TimedWave(wave: BasicWave(parent: foreground), duration: 300),
+                TimedWave(wave: BasicWave2(parent: foreground), duration: 300),
+                TimedWave(wave: BasicWave(parent: foreground), duration: 300)
+                ], startingFrame: frameCount)
+            startedWaveSpawning = true
+        }
+        
         
         //Kill waves with no enemies in them, update the others
         if (!activeWaves.isEmpty) {
@@ -218,6 +217,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         navcircleTouch = nil
         moving = false
+        startedWaveSpawning = false
         navcircle.run(SKAction.scale(to: 1.5, duration: 0.1))
     }
 }

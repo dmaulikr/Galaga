@@ -33,7 +33,7 @@ class WaveSequence {
     func step(frame: Int) -> [Wave] {
         currentFrame = frame
         var retWaves: [Wave] = []
-        //Don't do it if it's both not looping and past the final wave. Otherwise, spawn.
+        //Don't do it if it's past the final wave. Otherwise, spawn.
         while (framesToNextSpawn == 0 && nextWave < waves.count) {
             retWaves.append(waves[nextWave].wave)
             framesToNextSpawn = waves[nextWave].duration

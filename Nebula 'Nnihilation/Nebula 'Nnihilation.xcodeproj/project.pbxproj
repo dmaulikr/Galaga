@@ -23,6 +23,7 @@
 		842DEA111F28D84500AFAC7F /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA101F28D84500AFAC7F /* Velocity.swift */; };
 		842DEA181F28F85E00AFAC7F /* BasicWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA171F28F85E00AFAC7F /* BasicWave.swift */; };
 		842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA1A1F29255100AFAC7F /* WaveSequence.swift */; };
+		8498C42B1F29712200993867 /* BasicEnemy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498C42A1F29712200993867 /* BasicEnemy1.swift */; };
 		84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AE006B1F1A82F400550E79 /* PlayerBullet.sks */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		842DEA101F28D84500AFAC7F /* Velocity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		842DEA171F28F85E00AFAC7F /* BasicWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicWave.swift; sourceTree = "<group>"; };
 		842DEA1A1F29255100AFAC7F /* WaveSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveSequence.swift; sourceTree = "<group>"; };
+		8498C42A1F29712200993867 /* BasicEnemy1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicEnemy1.swift; sourceTree = "<group>"; };
 		84AE006B1F1A82F400550E79 /* PlayerBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerBullet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +191,7 @@
 		842DEA141F28F7D500AFAC7F /* Enemies */ = {
 			isa = PBXGroup;
 			children = (
+				8498C42A1F29712200993867 /* BasicEnemy1.swift */,
 			);
 			name = Enemies;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				84218F6C1F0E78B200CD36DB /* GameScene.swift in Sources */,
 				84218F6E1F0E78B200CD36DB /* GameViewController.swift in Sources */,
 				84218F661F0E78B200CD36DB /* AppDelegate.swift in Sources */,
+				8498C42B1F29712200993867 /* BasicEnemy1.swift in Sources */,
 				842DEA0B1F28CDAD00AFAC7F /* Enemy.swift in Sources */,
 				842DEA091F28CCC700AFAC7F /* Wave.swift in Sources */,
 				842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */,

@@ -46,7 +46,9 @@ class Wave {
     func update(frameCount: Int) {
         let currentFrame = frameCount - startingFrameCount
         for enemy in enemies {
-            enemy.update(frameCount: currentFrame)
+            if (currentFrame >= enemy.spawnFrame) {
+                enemy.update(frameCount: currentFrame)
+            }
         }
     }
 }
