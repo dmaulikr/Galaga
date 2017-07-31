@@ -48,6 +48,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
         playerWeapon2.position = CGPoint(x: -35, y: 5)
+        
+        let backgroundMusic = SKAudioNode(fileNamed: "Capacitor")
+        backgroundMusic.autoplayLooped = true
+        addChild(backgroundMusic)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -120,7 +124,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             currentWaveSequence = WaveSequence(waves: [
                 TimedWave(wave: BasicWave(parent: foreground), duration: 300),
                 TimedWave(wave: BasicWave2(parent: foreground), duration: 300),
-                TimedWave(wave: BasicWave(parent: foreground), duration: 300)
+                TimedWave(wave: BasicWave(parent: foreground), duration: 300),
+                TimedWave(wave: ComplexWave1FromLeft(parent:foreground), duration: 180),
+                TimedWave(wave: ComplexWave1FromRight(parent:foreground), duration: 180),
+                TimedWave(wave: BasicWave2(parent: foreground), duration: 300)
                 ], startingFrame: frameCount)
             startedWaveSpawning = true
         }

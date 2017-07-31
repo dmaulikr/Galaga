@@ -20,9 +20,11 @@ class WaveSequence {
     var totalSequenceFrames = 0
     
     init (waves: [TimedWave], startingFrame: Int) {
+        var startingFrame = startingFrame
         for wave in waves {
-            wave.wave.startingFrameCount = totalSequenceFrames
+            wave.wave.startingFrameCount = startingFrame
             totalSequenceFrames += wave.duration
+            startingFrame += wave.duration
             self.waves.append(TimedWave(wave: wave.wave, duration: wave.duration))
         }
         self.startingFrame = startingFrame

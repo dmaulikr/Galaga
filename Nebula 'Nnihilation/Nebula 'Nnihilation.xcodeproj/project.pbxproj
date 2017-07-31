@@ -21,9 +21,11 @@
 		842DEA091F28CCC700AFAC7F /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA081F28CCC700AFAC7F /* Wave.swift */; };
 		842DEA0B1F28CDAD00AFAC7F /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA0A1F28CDAD00AFAC7F /* Enemy.swift */; };
 		842DEA111F28D84500AFAC7F /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA101F28D84500AFAC7F /* Velocity.swift */; };
-		842DEA181F28F85E00AFAC7F /* BasicWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA171F28F85E00AFAC7F /* BasicWave.swift */; };
+		842DEA181F28F85E00AFAC7F /* BasicWaves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA171F28F85E00AFAC7F /* BasicWaves.swift */; };
 		842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842DEA1A1F29255100AFAC7F /* WaveSequence.swift */; };
 		8498C42B1F29712200993867 /* BasicEnemy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498C42A1F29712200993867 /* BasicEnemy1.swift */; };
+		8498C42D1F2A161800993867 /* ComplexWaves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498C42C1F2A161800993867 /* ComplexWaves.swift */; };
+		8498C42F1F2A1C8100993867 /* Capacitor.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8498C42E1F2A1C8100993867 /* Capacitor.mp3 */; };
 		84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AE006B1F1A82F400550E79 /* PlayerBullet.sks */; };
 /* End PBXBuildFile section */
 
@@ -65,9 +67,11 @@
 		842DEA081F28CCC700AFAC7F /* Wave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
 		842DEA0A1F28CDAD00AFAC7F /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		842DEA101F28D84500AFAC7F /* Velocity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
-		842DEA171F28F85E00AFAC7F /* BasicWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicWave.swift; sourceTree = "<group>"; };
+		842DEA171F28F85E00AFAC7F /* BasicWaves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicWaves.swift; sourceTree = "<group>"; };
 		842DEA1A1F29255100AFAC7F /* WaveSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveSequence.swift; sourceTree = "<group>"; };
 		8498C42A1F29712200993867 /* BasicEnemy1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicEnemy1.swift; sourceTree = "<group>"; };
+		8498C42C1F2A161800993867 /* ComplexWaves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexWaves.swift; sourceTree = "<group>"; };
+		8498C42E1F2A1C8100993867 /* Capacitor.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Capacitor.mp3; sourceTree = "<group>"; };
 		84AE006B1F1A82F400550E79 /* PlayerBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerBullet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +178,7 @@
 		842DEA0F1F28CDE100AFAC7F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8498C42E1F2A1C8100993867 /* Capacitor.mp3 */,
 				841F1A921F1FFAB500F55468 /* CannonBullet.sks */,
 				84AE006B1F1A82F400550E79 /* PlayerBullet.sks */,
 			);
@@ -183,7 +188,8 @@
 		842DEA121F28F3C100AFAC7F /* Waves */ = {
 			isa = PBXGroup;
 			children = (
-				842DEA171F28F85E00AFAC7F /* BasicWave.swift */,
+				842DEA171F28F85E00AFAC7F /* BasicWaves.swift */,
+				8498C42C1F2A161800993867 /* ComplexWaves.swift */,
 			);
 			name = Waves;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */,
+				8498C42F1F2A1C8100993867 /* Capacitor.mp3 in Resources */,
 				84218F711F0E78B200CD36DB /* Main.storyboard in Resources */,
 				84218F681F0E78B200CD36DB /* GameScene.sks in Resources */,
 				841F1A931F1FFAB500F55468 /* CannonBullet.sks in Resources */,
@@ -351,7 +358,8 @@
 				842DEA0B1F28CDAD00AFAC7F /* Enemy.swift in Sources */,
 				842DEA091F28CCC700AFAC7F /* Wave.swift in Sources */,
 				842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */,
-				842DEA181F28F85E00AFAC7F /* BasicWave.swift in Sources */,
+				842DEA181F28F85E00AFAC7F /* BasicWaves.swift in Sources */,
+				8498C42D1F2A161800993867 /* ComplexWaves.swift in Sources */,
 				841EE1C71F1A860E008C6F1B /* PlayerWeapon.swift in Sources */,
 				842DEA111F28D84500AFAC7F /* Velocity.swift in Sources */,
 			);
