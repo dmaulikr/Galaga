@@ -14,11 +14,11 @@ class ComplexWave1FromLeft: Wave {
     required init(startingFrameCount: Int, parent: SKNode) {
         super.init(startingFrameCount: startingFrameCount, parent: parent)
         let enemyArray = [
-            Enemy(spawnX: left - 300, spawnY: roof - 600, spawnSeconds: 0.0),
-            Enemy(spawnX: left - 500, spawnY: roof - 600, spawnSeconds: 0.0),
-            Enemy(spawnX: left - 700, spawnY: roof - 600, spawnSeconds: 0.0),
-            Enemy(spawnX: left - 900, spawnY: roof - 600, spawnSeconds: 0.0),
-            Enemy(spawnX: left - 1100, spawnY: roof - 600, spawnSeconds: 0.0)
+            Enemy(spawnX: left - 300, spawnY: roof - 300, spawnSeconds: 0.0),
+            Enemy(spawnX: left - 500, spawnY: roof - 300, spawnSeconds: 0.0),
+            Enemy(spawnX: left - 700, spawnY: roof - 300, spawnSeconds: 0.0),
+            Enemy(spawnX: left - 900, spawnY: roof - 300, spawnSeconds: 0.0),
+            Enemy(spawnX: left - 1100, spawnY: roof - 300, spawnSeconds: 0.0)
         ]
         enemyArray[0].velocity.angle = 360
         enemyArray[1].velocity.angle = 360
@@ -49,11 +49,11 @@ class ComplexWave1FromRight: Wave {
     required init(startingFrameCount: Int, parent: SKNode) {
         super.init(startingFrameCount: startingFrameCount, parent: parent)
         let enemyArray = [
-            Enemy(spawnX: right + 200, spawnY: roof - 900, spawnSeconds: 0.0),
-            Enemy(spawnX: right + 400, spawnY: roof - 900, spawnSeconds: 0.0),
-            Enemy(spawnX: right + 600, spawnY: roof - 900, spawnSeconds: 0.0),
-            Enemy(spawnX: right + 800, spawnY: roof - 900, spawnSeconds: 0.0),
-            Enemy(spawnX: right + 1000, spawnY: roof - 900, spawnSeconds: 0.0)
+            Enemy(spawnX: right + 200, spawnY: roof - 600, spawnSeconds: 0.0),
+            Enemy(spawnX: right + 400, spawnY: roof - 600, spawnSeconds: 0.0),
+            Enemy(spawnX: right + 600, spawnY: roof - 600, spawnSeconds: 0.0),
+            Enemy(spawnX: right + 800, spawnY: roof - 600, spawnSeconds: 0.0),
+            Enemy(spawnX: right + 1000, spawnY: roof - 600, spawnSeconds: 0.0)
         ]
         enemyArray[0].velocity.angle = 180
         enemyArray[1].velocity.angle = 180

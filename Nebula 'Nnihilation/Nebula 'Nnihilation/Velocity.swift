@@ -24,8 +24,6 @@ class Velocity {
         }
     }
     
-    /*
-     */
     init(magnitude: Double, angle: Double) {
         self.magnitude = magnitude
         self.angle = angle

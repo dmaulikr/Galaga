@@ -16,7 +16,7 @@ class BasicWave: Wave {
         let enemyArray = [
             Enemy(spawnX: leftCenter, spawnY: roof, spawnSeconds: 0.0),
             Enemy(spawnX: rightCenter, spawnY: roof, spawnSeconds: 0.0),
-            BasicEnemy1(spawnX: center, spawnY: roof, spawnSeconds: 2.0)
+            BasicEnemy1(spawnX: center, spawnY: roof, spawnSeconds: 1.0)
         ]
         addEnemies(enemies: enemyArray)
     }
@@ -29,11 +29,11 @@ class BasicWave2: Wave {
         super.init(startingFrameCount: startingFrameCount, parent: parent)
         let enemyArray = [
             Enemy(spawnX: left - 300, spawnY: roof - 500, spawnSeconds: 0.0),
-            Enemy(spawnX: right + 300, spawnY: roof - 500, spawnSeconds: 0.0),
-            Enemy(spawnX: center, spawnY: roof, spawnSeconds: 0.0)
+            Enemy(spawnX: center, spawnY: roof, spawnSeconds: 1.0),
+            Enemy(spawnX: right + 300, spawnY: roof - 300, spawnSeconds: 2.0)
         ]
         enemyArray[0].velocity.angle = 320
-        enemyArray[1].velocity.angle = 220
+        enemyArray[2].velocity.angle = 220
         addEnemies(enemies: enemyArray)
     }
     

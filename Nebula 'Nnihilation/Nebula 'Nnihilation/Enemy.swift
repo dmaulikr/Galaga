@@ -86,7 +86,16 @@ class Enemy: SKSpriteNode {
     }
     
     func initPhysics() {
-        physicsBody = SKPhysicsBody(rectangleOf: size)
+        physicsBody = SKPhysicsBody(circleOfRadius: (texture?.size().width)! * scale / 2)
+        physicsBody?.affectedByGravity = false
+        physicsBody?.allowsRotation = false
+        physicsBody?.collisionBitMask = UInt32(collisionMask)
+        physicsBody?.contactTestBitMask = UInt32(contactMask)
+        physicsBody?.categoryBitMask = UInt32(categoryMask)
+    }
+    
+    func initAlphaMask() {
+        physicsBody = SKPhysicsBody(texture: texture!, size: texture!.size())
         physicsBody?.affectedByGravity = false
         physicsBody?.allowsRotation = false
         physicsBody?.collisionBitMask = UInt32(collisionMask)
