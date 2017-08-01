@@ -35,28 +35,46 @@ class BulletPattern: SKSpriteNode {
     convenience init (originPosition: CGPoint, startFrameCount: Int, bullets: Bullet...) {
         self.init(originPosition: originPosition, startFrameCount: startFrameCount, bullets: bullets)
     }
-    //'Tracking' fires the pattern initially at some other node.
-    convenience init (originPosition: CGPoint, startFrameCount: Int, tracking: SKNode, bullets: Bullet...) {
+    convenience init (originPosition: CGPoint, startFrameCount: Int, startingVelocity: Velocity, bullets: Bullet...) {
         self.init(originPosition: originPosition, startFrameCount: startFrameCount, bullets: bullets)
+        velocity = startingVelocity
+    }
+    //'Tracking' fires the pattern initially at some other node.
+    
+    convenience init (originPosition: CGPoint, startFrameCount: Int, tracking: Bool, bullets: [Bullet]) {
+        self.init(originPosition: originPosition, startFrameCount: startFrameCount, bullets: bullets)
+        //In radians
         //Calculate the relative angle from 0.
-        let xDiff: CGFloat = tracking.position.x - position.x
-        let yDiff: CGFloat = tracking.position.y - position.y
-        let angle = tan(yDiff / xDiff)
-        var angleToOrigin: CGFloat = 0
-        //We calculate the angle in each quadrant, then modify it based on which quadrant it's in to make it relative to theta = 0.
-        if (xDiff >= 0 && yDiff >= 0) {
-            angleToOrigin = angle
-        } else if (xDiff >= 0) {
-            //y is negative
-            angleToOrigin = (.pi * 2) - angle
-        } else if (yDiff >= 0) {
-            //x is negative
-            angleToOrigin = .pi - angle
-        } else {
-            //both negative
-            angleToOrigin = .pi + angle
+        if (tracking) {
+            let xDiff: CGFloat = (GameScene.playerHitbox.position.x + GameScene.player.position.x) - position.x
+            let yDiff: CGFloat = (GameScene.playerHitbox.position.y + GameScene.player.position.y + 20) - position.y
+            let angle = atan(abs(yDiff) / abs(xDiff))
+            var angleToOrigin: CGFloat = angle
+            //We calculate the angle in each quadrant, then modify it based on which quadrant it's in to make it relative to theta = 0.
+            if (xDiff >= 0 && yDiff >= 0) {
+                angleToOrigin = angle
+            } else if (xDiff >= 0) {
+                //y is negative
+                angleToOrigin = (.pi * 2) - angle
+            } else if (yDiff >= 0) {
+                //x is negative
+                angleToOrigin = .pi - angle
+            } else {
+                //both negative
+                angleToOrigin = .pi + angle
+            }
+            
+            //Convert to degrees
+            velocity.angle = Double(angleToOrigin * 180) / .pi
         }
-        velocity.angle = Double(angleToOrigin)
+    }
+    
+    convenience init (originPosition: CGPoint, startFrameCount: Int, tracking: Bool, bullets: Bullet...) {
+        self.init(originPosition: originPosition, startFrameCount: startFrameCount, tracking: tracking, bullets: bullets)
+    }
+    convenience init (originPosition: CGPoint, startFrameCount: Int, tracking: Bool, startingVelocity: Velocity, bullets: Bullet...) {
+        self.init(originPosition: originPosition, startFrameCount: startFrameCount, tracking: tracking, bullets: bullets)
+        velocity.magnitude = startingVelocity.magnitude
     }
     
     func update(frameCount: Int) {

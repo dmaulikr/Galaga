@@ -107,10 +107,8 @@ class Enemy: SKSpriteNode {
                         width: GameScene.gameWidth - 100, height: GameScene.gameHeight - 100)
     func update(frameCount: Int) {
         if (frameCount % 60 == 0 && enteredScene) {
-            let startVelocity = Velocity(magnitude: 3, angle: 270)
-            startVelocity.add(velocity: velocity)
-            BulletPattern(originPosition: position, startFrameCount: frameCount, bullets:
-                Bullet(spawnX: 0, spawnY: 0, spawnFrame: 0, startVelocity: startVelocity)
+            BulletPattern(originPosition: position, startFrameCount: frameCount, tracking: true, startingVelocity: Velocity(magnitude: 4, angle: 0), bullets:
+                Bullet(spawnX: 0, spawnY: 0, spawnFrame: 0)
             )
         }
         

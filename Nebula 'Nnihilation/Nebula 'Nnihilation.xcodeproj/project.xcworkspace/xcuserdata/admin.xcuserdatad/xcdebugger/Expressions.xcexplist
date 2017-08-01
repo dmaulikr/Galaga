@@ -3,6 +3,36 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "BulletPattern.init(originPosition : CGPoint, startFrameCount : Int, tracking : Bool, bullets : [Bullet]) -&gt; BulletPattern:BulletPattern.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Double(angleToOrigin * 180) / .pi">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GameScene.touchesBegan(Set&lt;UITouch&gt;, with : UIEvent?) -&gt; ():GameScene.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "navcircle.frame">
+            </PersistentString>
+            <PersistentString
+               value = "convert(touchPosition, to: navcircle)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BulletPattern.init(originPosition : CGPoint, startFrameCount : Int, tracking : Bool, bullets : [Bullet]...) -&gt; BulletPattern:BulletPattern.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Double(angleToOrigin * 180) / .pi">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Bullet.update(frameCount : Int) -&gt; ():Bullet.swift">
+      </ContextState>
+      <ContextState
          contextName = "GameScene.didBegin(SKPhysicsContact) -&gt; ():GameScene.swift">
          <PersistentStrings>
             <PersistentString
@@ -42,13 +72,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GameScene.touchesBegan(Set&lt;UITouch&gt;, with : UIEvent?) -&gt; ():GameScene.swift">
+         contextName = "BulletPattern.init(originPosition : CGPoint, startFrameCount : Int, tracking : SKNode, bullets : [Bullet]...) -&gt; BulletPattern:BulletPattern.swift">
          <PersistentStrings>
             <PersistentString
-               value = "navcircle.frame">
+               value = "Double(angleToOrigin / .pi) * 180">
             </PersistentString>
             <PersistentString
-               value = "convert(touchPosition, to: navcircle)">
+               value = "tracking.position.x - position.x">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -7,8 +7,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     static let gameHeight = CGFloat(1334)
     
     static var player: SKSpriteNode!
+    static var playerHitbox: SKSpriteNode!
     static var bulletLayer: SKNode!
-    var foreground: SKNode!
+    static var foreground: SKNode!
     var background: SKNode!
     var navcircle: SKSpriteNode!
     var backgroundImage1: SKSpriteNode!
@@ -37,13 +38,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         isUserInteractionEnabled = true
-        foreground = childNode(withName: "Foreground")!
+        GameScene.foreground = childNode(withName: "Foreground")!
         background = childNode(withName: "Background")!
-        GameScene.player = foreground.childNode(withName: "Player") as! SKSpriteNode
+        GameScene.player = GameScene.foreground.childNode(withName: "Player") as! SKSpriteNode
+        GameScene.playerHitbox = GameScene.player.childNode(withName: "PlayerHitbox") as! SKSpriteNode
         navcircle = GameScene.player.childNode(withName: "Navcircle") as! SKSpriteNode
         backgroundImage1 = background.childNode(withName: "Background1") as! SKSpriteNode
         backgroundImage2 = background.childNode(withName: "Background2") as! SKSpriteNode
-        GameScene.bulletLayer = foreground.childNode(withName: "Bullets")!
+        GameScene.bulletLayer = GameScene.foreground.childNode(withName: "Bullets")!
         scoreLabel = childNode(withName: "Score") as! SKLabelNode
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
@@ -126,16 +128,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Shouldn't happen in final version, just until I set it so that the game finishes when the wave sequence
         //completes. At some point, the contents of this method should be just ... displayScoreScreen() or startStage2().
         if (!startedWaveSpawning || (currentWaveSequence!.isComplete())) {
+            
             currentWaveSequence = WaveSequence(waves: [
-                TimedWave(wave: BasicWave(parent: foreground), duration: 300),
-                TimedWave(wave: BasicWave2(parent: foreground), duration: 300),
-                TimedWave(wave: BasicWave(parent: foreground), duration: 300),
-                TimedWave(wave: ComplexWave1FromLeft(parent:foreground), duration: 180),
-                TimedWave(wave: ComplexWave1FromRight(parent:foreground), duration: 180),
-                TimedWave(wave: BasicWave2(parent: foreground), duration: 300)
+                TimedWave(wave: BasicWave(parent: GameScene.foreground), duration: 300),
+                TimedWave(wave: BasicWave2(parent: GameScene.foreground), duration: 300),
+                TimedWave(wave: BasicWave(parent: GameScene.foreground), duration: 300),
+                TimedWave(wave: ComplexWave1FromLeft(parent:GameScene.foreground), duration: 180),
+                TimedWave(wave: ComplexWave1FromRight(parent:GameScene.foreground), duration: 180),
+                TimedWave(wave: BasicWave2(parent: GameScene.foreground), duration: 300)
                 ], startingFrame: frameCount)
+            /* TEST WAVE
+            currentWaveSequence = WaveSequence(waves: [
+                TimedWave(wave: TestWave(parent: GameScene.foreground), duration: 600)
+                ], startingFrame: frameCount
+            
+            )*/
             startedWaveSpawning = true
         }
+        
         
         //Kill waves with no enemies in them, update the others
         if (!activeWaves.isEmpty) {
@@ -222,10 +232,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func restart() {
         GameScene.player.position.x = 0
         GameScene.player.position.y = -300
-        foreground.removeAllChildren()
+        GameScene.foreground.removeAllChildren()
         GameScene.bulletLayer.removeAllChildren()
-        foreground.addChild(GameScene.player)
-        foreground.addChild(GameScene.bulletLayer)
+        GameScene.foreground.addChild(GameScene.player)
+        GameScene.foreground.addChild(GameScene.bulletLayer)
         score = 0
         navcircleTouch = nil
         moving = false

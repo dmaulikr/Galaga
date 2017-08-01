@@ -9,6 +9,20 @@
 import Foundation
 import SpriteKit
 
+class TestWave: Wave {
+    
+    required init(startingFrameCount: Int, parent: SKNode) {
+        super.init(startingFrameCount: startingFrameCount, parent: parent)
+        let enemyArray = [
+            Enemy(spawnX: leftCenter, spawnY: roof - 800, spawnSeconds: 0.0),
+            Enemy(spawnX: rightCenter, spawnY: roof - 800, spawnSeconds: 0.0),
+            BasicEnemy1(spawnX: center, spawnY: roof - 500, spawnSeconds: 0.0)
+        ]
+        addEnemies(enemies: enemyArray)
+    }
+    
+}
+
 class BasicWave: Wave {
     
     required init(startingFrameCount: Int, parent: SKNode) {
