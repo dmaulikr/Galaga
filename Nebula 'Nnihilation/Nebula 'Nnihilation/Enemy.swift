@@ -106,6 +106,14 @@ class Enemy: SKSpriteNode {
     let screen = CGRect(x: GameScene.gameWidth / -2, y: GameScene.gameHeight / -2,
                         width: GameScene.gameWidth - 100, height: GameScene.gameHeight - 100)
     func update(frameCount: Int) {
+        if (frameCount % 60 == 0 && enteredScene) {
+            let startVelocity = Velocity(magnitude: 3, angle: 270)
+            startVelocity.add(velocity: velocity)
+            BulletPattern(originPosition: position, startFrameCount: frameCount, bullets:
+                Bullet(spawnX: 0, spawnY: 0, spawnFrame: 0, startVelocity: startVelocity)
+            )
+        }
+        
         if (!enteredScene && screen.contains(position)) {
             enteredScene = true
         }

@@ -17,6 +17,9 @@
          contextName = "Enemy.update(frameCount : Int) -&gt; ():Enemy.swift">
          <PersistentStrings>
             <PersistentString
+               value = "convert(position, to: GameScene.bulletLayer)">
+            </PersistentString>
+            <PersistentString
                value = "velocity.vector">
             </PersistentString>
             <PersistentString

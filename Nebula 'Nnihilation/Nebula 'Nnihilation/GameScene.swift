@@ -6,13 +6,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     static let gameWidth = CGFloat(850)
     static let gameHeight = CGFloat(1334)
     
+    static var player: SKSpriteNode!
+    static var bulletLayer: SKNode!
     var foreground: SKNode!
     var background: SKNode!
-    var player: SKSpriteNode!
     var navcircle: SKSpriteNode!
     var backgroundImage1: SKSpriteNode!
     var backgroundImage2: SKSpriteNode!
-    var bulletLayer: SKNode!
     var scoreLabel: SKLabelNode!
     //The waveSequence to step through in update. Set in didMove.
     var currentWaveSequence: WaveSequence?
@@ -39,11 +39,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isUserInteractionEnabled = true
         foreground = childNode(withName: "Foreground")!
         background = childNode(withName: "Background")!
-        player = foreground.childNode(withName: "Player") as! SKSpriteNode
-        navcircle = player.childNode(withName: "Navcircle") as! SKSpriteNode
+        GameScene.player = foreground.childNode(withName: "Player") as! SKSpriteNode
+        navcircle = GameScene.player.childNode(withName: "Navcircle") as! SKSpriteNode
         backgroundImage1 = background.childNode(withName: "Background1") as! SKSpriteNode
         backgroundImage2 = background.childNode(withName: "Background2") as! SKSpriteNode
-        bulletLayer = foreground.childNode(withName: "Bullets")!
+        GameScene.bulletLayer = foreground.childNode(withName: "Bullets")!
         scoreLabel = childNode(withName: "Score") as! SKLabelNode
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
         playerWeapon1.position = CGPoint(x: 35, y: 5)
@@ -56,7 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchPosition = touch.location(in: self)
-            let touchPositionInPlayerFrame = convert(touchPosition, to: player)
+            let touchPositionInPlayerFrame = convert(touchPosition, to: GameScene.player)
             if (navcircle.frame.contains(touchPositionInPlayerFrame) && !moving) {
                 lastTouchPosition = touchPosition
                 navcircleTouch = touch;
@@ -70,8 +70,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let touchPosition = touch.location(in: self)
             if (moving && touch.isEqual(navcircleTouch)) {
                 //Move the player by as much as the finger's moved, then reset the baseline
-                player.position.x = player.position.x - (lastTouchPosition!.x - touchPosition.x)
-                player.position.y = player.position.y - (lastTouchPosition!.y - touchPosition.y)
+                GameScene.player.position.x = GameScene.player.position.x - (lastTouchPosition!.x - touchPosition.x)
+                GameScene.player.position.y = GameScene.player.position.y - (lastTouchPosition!.y - touchPosition.y)
                 lastTouchPosition = touchPosition;
             }
         }
@@ -97,8 +97,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         if (frameCount % playerWeapon1.fireRate == 0) {
-            fireWeapon(weapon: playerWeapon1, senderPosition: player.position)
-            fireWeapon(weapon: playerWeapon2, senderPosition: player.position)
+            fireWeapon(weapon: playerWeapon1, senderPosition: GameScene.player.position)
+            fireWeapon(weapon: playerWeapon2, senderPosition: GameScene.player.position)
         }
         backgroundImage1.position.y -= 3
         backgroundImage2.position.y -= 3
@@ -110,6 +110,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         frameCount += 1
         
+        for patternNode in GameScene.bulletLayer.children {
+            if let pattern = patternNode as? BulletPattern {
+                pattern.update(frameCount: frameCount)
+            }
+        }
         
         //WAVE SPAWNING CODE
         //Tick the currently active waveSequence
@@ -132,7 +137,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             startedWaveSpawning = true
         }
         
-        
         //Kill waves with no enemies in them, update the others
         if (!activeWaves.isEmpty) {
             var counter = activeWaves.count - 1
@@ -149,6 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        //Same for bullet patterns
     }
     func fireWeapon(weapon: Weapon, senderPosition: CGPoint) {
         let bullet: SKEmitterNode = SKEmitterNode(fileNamed: weapon.filename)!
@@ -159,7 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.categoryBitMask = UInt32(weapon.categoryMask)
         bullet.physicsBody?.contactTestBitMask = UInt32(weapon.contactMask)
-        bulletLayer.addChild(bullet)
+        GameScene.bulletLayer.addChild(bullet)
         bullet.physicsBody?.applyImpulse(CGVector(dx: 0, dy: weapon.force))
     }
     func didBegin(_ contact: SKPhysicsContact) {
@@ -215,12 +220,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     func restart() {
-        player.position.x = 0
-        player.position.y = -300
+        GameScene.player.position.x = 0
+        GameScene.player.position.y = -300
         foreground.removeAllChildren()
-        bulletLayer.removeAllChildren()
-        foreground.addChild(player)
-        foreground.addChild(bulletLayer)
+        GameScene.bulletLayer.removeAllChildren()
+        foreground.addChild(GameScene.player)
+        foreground.addChild(GameScene.bulletLayer)
         score = 0
         navcircleTouch = nil
         moving = false

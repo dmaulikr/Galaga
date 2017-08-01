@@ -29,6 +29,7 @@ class BasicEnemy1: Enemy {
     
     override func update(frameCount: Int) {
         super.update(frameCount: frameCount)
+        
         if (!direction && velocity.angle > 220) {
             velocity.angle -= 1
         } else if (!direction && velocity.angle == 220) {

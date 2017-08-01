@@ -29,4 +29,8 @@ class Velocity {
         self.angle = angle
     }
     
+    func add(velocity: Velocity) {
+        vector = CGVector(dx: vector.dx + velocity.vector.dx, dy: vector.dy + velocity.vector.dy)
+    }
+    
 }

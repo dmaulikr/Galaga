@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		841EE1C71F1A860E008C6F1B /* PlayerWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EE1C61F1A860E008C6F1B /* PlayerWeapon.swift */; };
-		841F1A931F1FFAB500F55468 /* CannonBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 841F1A921F1FFAB500F55468 /* CannonBullet.sks */; };
 		84218F661F0E78B200CD36DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F651F0E78B200CD36DB /* AppDelegate.swift */; };
 		84218F681F0E78B200CD36DB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84218F671F0E78B200CD36DB /* GameScene.sks */; };
 		84218F6C1F0E78B200CD36DB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84218F6B1F0E78B200CD36DB /* GameScene.swift */; };
@@ -27,6 +26,8 @@
 		8498C42D1F2A161800993867 /* ComplexWaves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498C42C1F2A161800993867 /* ComplexWaves.swift */; };
 		8498C42F1F2A1C8100993867 /* Capacitor.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8498C42E1F2A1C8100993867 /* Capacitor.mp3 */; };
 		84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AE006B1F1A82F400550E79 /* PlayerBullet.sks */; };
+		84C7EC4A1F30CA54003F3D75 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EC491F30CA54003F3D75 /* Bullet.swift */; };
+		84C7EC4C1F30EC83003F3D75 /* BulletPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EC4B1F30EC83003F3D75 /* BulletPattern.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,6 @@
 
 /* Begin PBXFileReference section */
 		841EE1C61F1A860E008C6F1B /* PlayerWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapon.swift; sourceTree = "<group>"; };
-		841F1A921F1FFAB500F55468 /* CannonBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CannonBullet.sks; sourceTree = "<group>"; };
 		84218F621F0E78B200CD36DB /* Nebula 'Nnihilation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nebula 'Nnihilation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84218F651F0E78B200CD36DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84218F671F0E78B200CD36DB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -73,6 +73,8 @@
 		8498C42C1F2A161800993867 /* ComplexWaves.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexWaves.swift; sourceTree = "<group>"; };
 		8498C42E1F2A1C8100993867 /* Capacitor.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Capacitor.mp3; sourceTree = "<group>"; };
 		84AE006B1F1A82F400550E79 /* PlayerBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerBullet.sks; sourceTree = "<group>"; };
+		84C7EC491F30CA54003F3D75 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		84C7EC4B1F30EC83003F3D75 /* BulletPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletPattern.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,8 @@
 				842DEA081F28CCC700AFAC7F /* Wave.swift */,
 				842DEA1A1F29255100AFAC7F /* WaveSequence.swift */,
 				842DEA101F28D84500AFAC7F /* Velocity.swift */,
+				84C7EC491F30CA54003F3D75 /* Bullet.swift */,
+				84C7EC4B1F30EC83003F3D75 /* BulletPattern.swift */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -179,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				8498C42E1F2A1C8100993867 /* Capacitor.mp3 */,
-				841F1A921F1FFAB500F55468 /* CannonBullet.sks */,
 				84AE006B1F1A82F400550E79 /* PlayerBullet.sks */,
 			);
 			name = Resources;
@@ -324,7 +327,6 @@
 				8498C42F1F2A1C8100993867 /* Capacitor.mp3 in Resources */,
 				84218F711F0E78B200CD36DB /* Main.storyboard in Resources */,
 				84218F681F0E78B200CD36DB /* GameScene.sks in Resources */,
-				841F1A931F1FFAB500F55468 /* CannonBullet.sks in Resources */,
 				84218F731F0E78B200CD36DB /* Assets.xcassets in Resources */,
 				84218F761F0E78B200CD36DB /* LaunchScreen.storyboard in Resources */,
 			);
@@ -356,12 +358,14 @@
 				84218F661F0E78B200CD36DB /* AppDelegate.swift in Sources */,
 				8498C42B1F29712200993867 /* BasicEnemy1.swift in Sources */,
 				842DEA0B1F28CDAD00AFAC7F /* Enemy.swift in Sources */,
+				84C7EC4C1F30EC83003F3D75 /* BulletPattern.swift in Sources */,
 				842DEA091F28CCC700AFAC7F /* Wave.swift in Sources */,
 				842DEA1B1F29255100AFAC7F /* WaveSequence.swift in Sources */,
 				842DEA181F28F85E00AFAC7F /* BasicWaves.swift in Sources */,
 				8498C42D1F2A161800993867 /* ComplexWaves.swift in Sources */,
 				841EE1C71F1A860E008C6F1B /* PlayerWeapon.swift in Sources */,
 				842DEA111F28D84500AFAC7F /* Velocity.swift in Sources */,
+				84C7EC4A1F30CA54003F3D75 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
