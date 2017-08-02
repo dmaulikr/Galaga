@@ -51,8 +51,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameScene.bulletLayer = GameScene.foreground.childNode(withName: "Bullets")!
         scoreLabel = childNode(withName: "Score") as! SKLabelNode
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
-        GameScene.playerWeapon1.position = CGPoint(x: 35, y: 5)
-        playerWeapon2.position = CGPoint(x: -35, y: 5)
+        GameScene.playerWeapon1.position = CGPoint(x: 15, y: 5)
+        playerWeapon2.position = CGPoint(x: -15, y: 5)
         
         let backgroundMusic = SKAudioNode(fileNamed: "Capacitor")
         backgroundMusic.autoplayLooped = true
@@ -210,14 +210,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //END WEAPONS
                 if (body1.name == "PlayerBullet" && body2.name == "Enemy") {
                     if let enemy = body2 as? Enemy {
-                        enemy.collision(withBody: body2)
+                        if (enemy.collision(withBody: body1)) {
+                            particleEffect(position: body2.position, filename: "EnemyExplosion", duration: 1)
+                        }
                     }
+                    particleEffect(position: body1.position, filename: "BulletSplash", duration: 0.15)
                     body1.removeFromParent()
                     score += GameScene.playerWeapon1.damage
                 } else if (body2.name == "PlayerBullet" && body1.name == "Enemy") {
                     if let enemy = body1 as? Enemy {
-                        enemy.collision(withBody: body2)
+                        if (enemy.collision(withBody: body2)) {
+                            particleEffect(position: body1.position, filename: "EnemyExplosion", duration: 1)
+                        }
                     }
+                    particleEffect(position: body2.position, filename: "BulletSplash", duration: 0.15)
                     body2.removeFromParent()
                     score += GameScene.playerWeapon1.damage
                 }
@@ -237,6 +243,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    func particleEffect(position: CGPoint, filename: String, duration: Double) {
+        let splash = SKEmitterNode(fileNamed: filename)
+        splash?.position = position
+        splash?.zPosition = 4
+        GameScene.bulletLayer.addChild(splash!)
+        splash?.run(SKAction.sequence([SKAction.wait(forDuration: duration),
+                                       SKAction.fadeOut(withDuration: 0.05),
+                                       SKAction.removeFromParent()]))
+    }
+    
     func restart() {
         GameScene.player.position.x = 0
         GameScene.player.position.y = -300

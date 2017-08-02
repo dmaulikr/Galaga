@@ -28,6 +28,8 @@
 		84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84AE006B1F1A82F400550E79 /* PlayerBullet.sks */; };
 		84C7EC4A1F30CA54003F3D75 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EC491F30CA54003F3D75 /* Bullet.swift */; };
 		84C7EC4C1F30EC83003F3D75 /* BulletPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7EC4B1F30EC83003F3D75 /* BulletPattern.swift */; };
+		84C7EC4E1F324DE1003F3D75 /* BulletSplash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84C7EC4D1F324DE1003F3D75 /* BulletSplash.sks */; };
+		84C7EC501F325551003F3D75 /* EnemyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84C7EC4F1F325551003F3D75 /* EnemyExplosion.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		84AE006B1F1A82F400550E79 /* PlayerBullet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerBullet.sks; sourceTree = "<group>"; };
 		84C7EC491F30CA54003F3D75 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		84C7EC4B1F30EC83003F3D75 /* BulletPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletPattern.swift; sourceTree = "<group>"; };
+		84C7EC4D1F324DE1003F3D75 /* BulletSplash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BulletSplash.sks; sourceTree = "<group>"; };
+		84C7EC4F1F325551003F3D75 /* EnemyExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EnemyExplosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 			children = (
 				8498C42E1F2A1C8100993867 /* Capacitor.mp3 */,
 				84AE006B1F1A82F400550E79 /* PlayerBullet.sks */,
+				84C7EC4D1F324DE1003F3D75 /* BulletSplash.sks */,
+				84C7EC4F1F325551003F3D75 /* EnemyExplosion.sks */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -323,7 +329,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C7EC501F325551003F3D75 /* EnemyExplosion.sks in Resources */,
 				84AE006C1F1A82F400550E79 /* PlayerBullet.sks in Resources */,
+				84C7EC4E1F324DE1003F3D75 /* BulletSplash.sks in Resources */,
 				8498C42F1F2A1C8100993867 /* Capacitor.mp3 in Resources */,
 				84218F711F0E78B200CD36DB /* Main.storyboard in Resources */,
 				84218F681F0E78B200CD36DB /* GameScene.sks in Resources */,

@@ -108,18 +108,22 @@ class Enemy: SKSpriteNode {
         position.y = position.y + velocity.vector.dy
     }
     
-    func collision(withBody body: SKNode) {
+    //Returns true if destroyed
+    func collision(withBody body: SKNode) -> Bool {
         if let bullet = body as? Bullet {
             health -= bullet.damage
             if (health <= 0) {
                 destroy()
+                return true
             }
         } else if (body is SKEmitterNode && body.name == "PlayerBullet") {
             health -= GameScene.playerWeapon1.damage
             if (health <= 0) {
                 destroy()
+                return true
             }
         }
+        return false
     }
     
     func destroy() {
