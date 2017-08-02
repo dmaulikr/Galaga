@@ -31,6 +31,9 @@ class Bullet: SKSpriteNode {
     var nodeName: String {
         return "EnemyBullet"
     }
+    var damage: Int {
+        return 7
+    }
     
     var index = 0
     
@@ -38,7 +41,7 @@ class Bullet: SKSpriteNode {
     //This means just the number of frames after the wave is created.
     init(spawnLocation: CGPoint, spawnFrame: Int) {
         velocity = Velocity(magnitude: 0, angle: 0)
-        collisionMask = 0
+        collisionMask = 64
         contactMask = 1
         categoryMask = 1
         self.spawnLocation = spawnLocation
@@ -49,6 +52,7 @@ class Bullet: SKSpriteNode {
         position = spawnLocation
         name = nodeName
         zPosition = CGFloat(self.zPos)
+        initPhysics()
     }
     convenience init(spawnX: Int, spawnY: Int, spawnFrame: Int) {
         self.init(spawnLocation: CGPoint(x: spawnX, y: spawnY), spawnFrame: spawnFrame)
@@ -70,7 +74,16 @@ class Bullet: SKSpriteNode {
         fatalError("Warning: Default bullet initializer called.")
     }
     
-    //Override in subclasses. Required. Something like 'return super.duplicate() as! BulletSubclass'
+    func initPhysics() {
+        physicsBody = SKPhysicsBody(circleOfRadius: (texture?.size().width)! * scale / 2)
+        physicsBody?.affectedByGravity = false
+        physicsBody?.allowsRotation = false
+        physicsBody?.collisionBitMask = UInt32(collisionMask)
+        physicsBody?.contactTestBitMask = UInt32(contactMask)
+        physicsBody?.categoryBitMask = UInt32(categoryMask)
+    }
+    
+    //Override in subclasses. Something like 'return super.duplicate() as! BulletSubclass'
     func duplicate() -> Bullet {
         
         if ((self.superclass as? Bullet) != nil) {

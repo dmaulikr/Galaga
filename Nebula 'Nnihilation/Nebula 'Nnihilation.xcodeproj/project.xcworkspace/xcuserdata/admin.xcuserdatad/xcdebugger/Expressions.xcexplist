@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "BulletPattern.update(frameCount : Int) -&gt; ():BulletPattern.swift">
+      </ContextState>
+      <ContextState
          contextName = "BulletPattern.init(originPosition : CGPoint, startFrameCount : Int, tracking : Bool, bullets : [Bullet]) -&gt; BulletPattern:BulletPattern.swift">
          <PersistentStrings>
             <PersistentString
@@ -62,6 +65,9 @@
          <PersistentStrings>
             <PersistentString
                value = "playerChild is Weapon">
+            </PersistentString>
+            <PersistentString
+               value = "GameScene.bulletLayer.children">
             </PersistentString>
             <PersistentString
                value = "playerChild.name">

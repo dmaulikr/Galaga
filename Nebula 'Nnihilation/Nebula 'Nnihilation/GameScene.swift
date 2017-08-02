@@ -102,8 +102,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             fireWeapon(weapon: playerWeapon1, senderPosition: GameScene.player.position)
             fireWeapon(weapon: playerWeapon2, senderPosition: GameScene.player.position)
         }
-        backgroundImage1.position.y -= 3
-        backgroundImage2.position.y -= 3
+        backgroundImage1.position.y -= 1
+        backgroundImage2.position.y -= 1
         if (backgroundImage1.position.y < GameScene.gameHeight * -1) {
             backgroundImage1.position.y = backgroundImage2.position.y + GameScene.gameHeight
         }
@@ -112,9 +112,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         frameCount += 1
         
+        //Update active patterns, garbage collect
         for patternNode in GameScene.bulletLayer.children {
             if let pattern = patternNode as? BulletPattern {
-                pattern.update(frameCount: frameCount)
+                if (pattern.bullets.count > 0) {
+                    pattern.update(frameCount: frameCount)
+                } else {
+                    pattern.removeFromParent()
+                }
             }
         }
         
@@ -163,7 +168,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        //Same for bullet patterns
     }
     func fireWeapon(weapon: Weapon, senderPosition: CGPoint) {
         let bullet: SKEmitterNode = SKEmitterNode(fileNamed: weapon.filename)!
@@ -174,6 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.categoryBitMask = UInt32(weapon.categoryMask)
         bullet.physicsBody?.contactTestBitMask = UInt32(weapon.contactMask)
+        bullet.physicsBody?.collisionBitMask = UInt32(128)
         GameScene.bulletLayer.addChild(bullet)
         bullet.physicsBody?.applyImpulse(CGVector(dx: 0, dy: weapon.force))
     }
@@ -236,6 +241,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameScene.bulletLayer.removeAllChildren()
         GameScene.foreground.addChild(GameScene.player)
         GameScene.foreground.addChild(GameScene.bulletLayer)
+        activeWaves.removeAll()
         score = 0
         navcircleTouch = nil
         moving = false

@@ -45,7 +45,7 @@ class Enemy: SKSpriteNode {
     //This means just the number of frames after the wave is created.
     init(spawnLocation: CGPoint, spawnFrame: Int) {
         health = 0
-        velocity = Velocity(magnitude: 4, angle: 270)
+        velocity = Velocity(magnitude: 3, angle: 270)
         nodeName = "Enemy"
         collisionMask = 0
         contactMask = 1
@@ -120,7 +120,12 @@ class Enemy: SKSpriteNode {
     }
     
     func collision(withBody body: SKNode) {
-        
+        if let bullet = body as? Bullet {
+            health -= bullet.damage
+            if (health <= 0) {
+                self.removeFromParent()
+            }
+        }
     }
     
     func destroy() {

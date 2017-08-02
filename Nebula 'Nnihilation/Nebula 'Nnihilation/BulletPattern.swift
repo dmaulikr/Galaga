@@ -26,7 +26,7 @@ class BulletPattern: SKSpriteNode {
         position = originPosition
         for bullet in bullets {
             addChild(bullet)
-            bullet.index = bullets.count
+            bullet.index = bullets.count - 1
             self.bullets.append(bullet)
         }
         name = "BulletPattern"
@@ -81,14 +81,14 @@ class BulletPattern: SKSpriteNode {
         position.x = position.x + velocity.vector.dx
         position.y = position.y + velocity.vector.dy
         zRotation = CGFloat(velocity.angle)
-        if (bullets.count == 0) {
-            self.removeFromParent()
-        }
         for bullet in bullets {
             if (bullet.parent == nil) {
                 //Remove the bullet, update indexes
-                for i in (bullet.index + 1)...(bullets.count - 1) {
-                    bullets[i].index -= 1
+                if (bullet.index + 1 < bullets.count)
+                {
+                    for i in (bullet.index + 1)...(bullets.count - 1) {
+                        bullets[i].index -= 1
+                    }
                 }
                 bullets.remove(at: bullet.index)
             } else {
