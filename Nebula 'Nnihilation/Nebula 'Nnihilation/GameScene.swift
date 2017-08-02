@@ -6,6 +6,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     static let gameWidth = CGFloat(850)
     static let gameHeight = CGFloat(1334)
     
+    //Static so that the bullet classes can manipulate and track the bulletLayer and player, and garbage collect themselves
     static var player: SKSpriteNode!
     static var playerHitbox: SKSpriteNode!
     static var bulletLayer: SKNode!
@@ -18,12 +19,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //The waveSequence to step through in update. Set in didMove.
     var currentWaveSequence: WaveSequence?
     
+    //Static so other classes can access it's damage. Reevaluate once player bullets subclass Bullet.
+    static var playerWeapon1: PlayerWeapon = PlayerWeapon()
+    var playerWeapon2: PlayerWeapon = PlayerWeapon()
+    
     var moving = false
     var navcircleTouch: UITouch? = nil
     var lastTouchPosition: CGPoint? = nil
     var frameCount = 0
-    var playerWeapon1: PlayerWeapon = PlayerWeapon()
-    var playerWeapon2: PlayerWeapon = PlayerWeapon()
     var activeWaves: [Wave] = []
     var score: Int {
         get {
@@ -48,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameScene.bulletLayer = GameScene.foreground.childNode(withName: "Bullets")!
         scoreLabel = childNode(withName: "Score") as! SKLabelNode
         physicsWorld.contactDelegate = self as SKPhysicsContactDelegate
-        playerWeapon1.position = CGPoint(x: 35, y: 5)
+        GameScene.playerWeapon1.position = CGPoint(x: 35, y: 5)
         playerWeapon2.position = CGPoint(x: -35, y: 5)
         
         let backgroundMusic = SKAudioNode(fileNamed: "Capacitor")
@@ -98,8 +101,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        if (frameCount % playerWeapon1.fireRate == 0) {
-            fireWeapon(weapon: playerWeapon1, senderPosition: GameScene.player.position)
+        if (frameCount % GameScene.playerWeapon1.fireRate == 0) {
+            fireWeapon(weapon: GameScene.playerWeapon1, senderPosition: GameScene.player.position)
             fireWeapon(weapon: playerWeapon2, senderPosition: GameScene.player.position)
         }
         backgroundImage1.position.y -= 1
@@ -210,13 +213,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         enemy.collision(withBody: body2)
                     }
                     body1.removeFromParent()
-                    score += playerWeapon1.damage
+                    score += GameScene.playerWeapon1.damage
                 } else if (body2.name == "PlayerBullet" && body1.name == "Enemy") {
                     if let enemy = body1 as? Enemy {
                         enemy.collision(withBody: body2)
                     }
                     body2.removeFromParent()
-                    score += playerWeapon1.damage
+                    score += GameScene.playerWeapon1.damage
                 }
                 if (body1.name == "Enemy" && body2.name == "Barrier") {
                     if let enemy = body1 as? Enemy {

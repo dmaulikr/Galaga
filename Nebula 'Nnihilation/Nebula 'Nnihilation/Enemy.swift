@@ -33,7 +33,7 @@ class Enemy: SKSpriteNode {
     //The index it is at in the wave's array of enemies.
     var waveIndex: Int?
     
-    //Override in subclasses
+    //Override in subclasses. Computed so that you don't have to override the init for custom bullet images.
     var imageFilename: String {
         return "Enemy1"
     }
@@ -44,7 +44,7 @@ class Enemy: SKSpriteNode {
     //spawnFrame is the frame in which it should spawn RELATIVE TO THE WAVE.
     //This means just the number of frames after the wave is created.
     init(spawnLocation: CGPoint, spawnFrame: Int) {
-        health = 0
+        health = 25
         velocity = Velocity(magnitude: 3, angle: 270)
         nodeName = "Enemy"
         collisionMask = 0
@@ -70,19 +70,8 @@ class Enemy: SKSpriteNode {
     //This would allow for one enemy type to have multiple paths. Another way to do this is with an enum and then conditionals
     //in the class's update method that checks for which version of that enemy type it is.
 
-    //All will be set to default values. Don't call this without changing them afterwards.
     required init?(coder aDecoder: NSCoder) {
-        print("Warning: Default enemy initializer called.")
-        health = 0
-        velocity = Velocity(magnitude: 0, angle: 0)
-        spawnFrame = 0
-        spawnLocation = CGPoint.zero
-        nodeName = "Enemy"
-        collisionMask = 0
-        contactMask = 0
-        categoryMask = 0
-        super.init(coder: aDecoder)
-        texture = SKTexture(imageNamed: imageFilename)
+        fatalError("Warning: Default enemy initializer called.")
     }
     
     func initPhysics() {
@@ -106,7 +95,7 @@ class Enemy: SKSpriteNode {
     let screen = CGRect(x: GameScene.gameWidth / -2, y: GameScene.gameHeight / -2,
                         width: GameScene.gameWidth - 100, height: GameScene.gameHeight - 100)
     func update(frameCount: Int) {
-        if (frameCount % 60 == 0 && enteredScene) {
+        if (frameCount % 120 == 0 && enteredScene) {
             BulletPattern(originPosition: position, startFrameCount: frameCount, tracking: true, startingVelocity: Velocity(magnitude: 4, angle: 0), bullets:
                 Bullet(spawnX: 0, spawnY: 0, spawnFrame: 0)
             )
@@ -123,7 +112,12 @@ class Enemy: SKSpriteNode {
         if let bullet = body as? Bullet {
             health -= bullet.damage
             if (health <= 0) {
-                self.removeFromParent()
+                destroy()
+            }
+        } else if (body is SKEmitterNode && body.name == "PlayerBullet") {
+            health -= GameScene.playerWeapon1.damage
+            if (health <= 0) {
+                destroy()
             }
         }
     }
